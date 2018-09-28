@@ -19,6 +19,13 @@ class ClientController extends CI_Controller {
                 $this->load->view('dashboard/view_all_clients');
                 $this->load->view('layout/footer');
 	}
+        public function all_payment_view()
+	{
+		$this->load->view('layout/header');
+                $this->load->view('dashboard/view_all_payments');
+                $this->load->view('layout/footer');
+	}
+          
                 
         
 }

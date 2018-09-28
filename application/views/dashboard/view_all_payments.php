@@ -1,25 +1,25 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Client</h1>
+            <h1 class="page-header">Payment</h1>
         </div>
     </div>
     <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             <i class="fa fa-users fa-fw"></i> Client List
+                             <i class="fa fa-money fa-fw"></i> Payment List
                         </div>
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <a href="<?php echo site_url() ?>/add_client" class="btn btn-info pull-right" role="button">Add New Client</a><br><br>
+                                <a href="<?php echo site_url() ?>/make_payment" class="btn btn-info pull-right" role="button">Make Payment</a><br><br>
                                 
                                 <thead>
                                     <tr>
-                                        <th>Policy No.</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Status</th>
+                                        <th>Invoice No.</th>
+                                        <th>Client Name</th>
+                                        <th>Consultant</th>
+                                        <th>Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -437,6 +437,8 @@
 
 </div>
 <!-- /#wrapper -->
+
+
 
 
 

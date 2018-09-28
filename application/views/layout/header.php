@@ -25,7 +25,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <!-- Morris Charts CSS -->
         <link href="<?php echo base_url(); ?>assets/css/morris.css" rel="stylesheet">
-<!--        <link href="<?php echo base_url(); ?>assets/css/header.css" rel="stylesheet">-->
         <!-- Datatables CSS -->
         <link href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>assets/css/dataTables.responsive.css" rel="stylesheet">
@@ -91,7 +90,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <a href="<?php echo site_url() ?>/home"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-money fa-fw"></i> Payments</a>
+                            <a href="<?php echo site_url() ?>/all_payment"><i class="fa fa-money fa-fw"></i> Payments</a>
                         </li>
                         <li>
                             <a href="<?php echo site_url() ?>/all_client"><i class="fa fa-users fa-fw"></i> Clients</a>
