@@ -25,7 +25,14 @@ Class pmsModel extends CI_Model
             }
         }
         
-    public function getMemberType() 
+    public function getClient() 
+        {
+        $this->db->distinct('person.PolicyNumber,policy.PolicyNumber');
+        $this->db->select('*');
+        $this->db->from('person, policy');
+        return $this->db->get();
+    }
+     public function getMemberType() 
         {
         $this->db->select('*');
         $this->db->from('member_type');
@@ -38,6 +45,25 @@ Class pmsModel extends CI_Model
             return false;
         }
     }
+    public function add_person( $policy,$person) {
+        $this->db->insert('policy', $policy);
+        $policyNumber = $this->db->insert_id();
+       
+        
+        $person['PolicyNumber'] = $policyNumber;
+        $this->db->insert('person', $person);
+        return $person;
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
 

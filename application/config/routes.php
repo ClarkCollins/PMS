@@ -59,6 +59,7 @@ $route['home'] = 'HomeController/home_view';
 $route['add_client'] = 'ClientController/register_view';
 $route['all_client'] = 'ClientController/all_client_view';
 $route['all_payment'] = 'ClientController/all_payment_view';
+$route['register_client'] = 'ClientController/add_client';
 //Staff
 $route['add_consultant'] = 'StaffController/add_consultant_view';
 $route['profile'] = 'StaffController/profile_view';
