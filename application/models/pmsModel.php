@@ -27,15 +27,28 @@ Class pmsModel extends CI_Model
         
     public function getClient() 
         {
-        $this->db->distinct('person.PolicyNumber,policy.PolicyNumber');
-        $this->db->select('*');
+        $active = "Active";
+        $delete = "No";
+        $this->db->select('person.*, policy.*');
         $this->db->from('person, policy');
+        $this->db->where('Status',$active);
+        $this->db->where('Deleted',$delete);
+        $this->db->where('person.PolicyNumber = policy.PolicyNumber');
+        return $this->db->get();
+    }
+    public function getPolicy($policyNum) 
+        {
+        $this->db->select('policy.*');
+        $this->db->from('policy');
+        $this->db->where('policy.PolicyNumber',$policyNum);
         return $this->db->get();
     }
      public function getMemberType() 
         {
+         $main = "Main member";
         $this->db->select('*');
         $this->db->from('member_type');
+        $this->db->where('TypeName!=',$main);
 
         $data = $this->db->get();
 
@@ -48,14 +61,72 @@ Class pmsModel extends CI_Model
     public function add_person( $policy,$person) {
         $this->db->insert('policy', $policy);
         $policyNumber = $this->db->insert_id();
-       
         
         $person['PolicyNumber'] = $policyNumber;
         $this->db->insert('person', $person);
         return $person;
     }
-
+    public function add_person2($form_policy,$person) {
+        $person['PolicyNumber'] = $form_policy;
+        $this->db->insert('person', $person);
+        return $person;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

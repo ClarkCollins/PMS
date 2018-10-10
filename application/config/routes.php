@@ -57,6 +57,7 @@ $route['home'] = 'HomeController/home_view';
 
 //Client
 $route['add_client'] = 'ClientController/register_view';
+$route['add_dependent/(.*)'] = 'ClientController/register_dependent_view/$1';
 $route['all_client'] = 'ClientController/all_client_view';
 $route['all_payment'] = 'ClientController/all_payment_view';
 $route['register_client'] = 'ClientController/add_client';

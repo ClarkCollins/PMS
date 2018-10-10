@@ -16,6 +16,15 @@ class ClientController extends CI_Controller {
                 $this->load->view('dashboard/register_client',$dataMember);
                 $this->load->view('layout/footer');
 	}
+        public function register_dependent_view($meg1)
+        {
+                $dataMember = array(
+                'meg1' => $meg1,);
+                $dataMember['mType'] = $this->pmsModel->getMemberType();
+		$this->load->view('layout/header');
+                $this->load->view('dashboard/register_client_dependent',$dataMember);
+                $this->load->view('layout/footer');
+	}
         public function all_client_view()
 	{
                 $data['allClient'] = $this->pmsModel->getClient();
@@ -59,19 +68,41 @@ class ClientController extends CI_Controller {
             if ($userpic == NULL) {
                 $userpic = 'no_profile.jpeg';
             }
+         
+            $form_policy = $this->input->post('PolicyNumber');
+            $data['info'] = $this->pmsModel->getPolicy($form_policy);
+        foreach ($data['info']->result() as $row) {
+            $db_policy = $row->PolicyNumber;
+        }
+            if($db_policy == $form_policy)
+        { 
+                if($this->input->post('MembershipID')==1){
         $add_client = array();
         $add_client['FirstName'] = $this->input->post('FirstName');
         $add_client['LastName'] = $this->input->post('LastName');
         $add_client['ContactNo'] = $this->input->post('ContactNo');
         $add_client['DOB'] = $this->input->post('DOB');
         $add_client['Gender'] = $this->input->post('Gender');
-        $add_client['MembershipID'] = $this->input->post('MembershipID');
         $add_client['PicturePath'] = $userpic;
-        
+        $add_client['MembershipID'] = "1";  
         $add_client_policy = array();
         $date = date('Y-m-d');
         $add_client_policy['InceptionDate'] = $date;
-        $this->pmsModel->add_person($add_client_policy,$add_client);
+         $this->pmsModel->add_person($add_client_policy,$add_client);
+        }
+        else{
+        $add_client = array();
+        $add_client['FirstName'] = $this->input->post('FirstName');
+        $add_client['LastName'] = $this->input->post('LastName');
+        $add_client['ContactNo'] = $this->input->post('ContactNo');
+        $add_client['DOB'] = $this->input->post('DOB');
+        $add_client['Gender'] = $this->input->post('Gender');
+        $add_client['PicturePath'] = $userpic;
+        $add_client['MembershipID'] = $this->input->post('MembershipID');
+            $this->pmsModel->add_person2($form_policy,$add_client);
+        }
+            
+        }
         $client="Client Added";
         $this->session->set_flashdata('flash_Success', $client);
         redirect("/all_client");
