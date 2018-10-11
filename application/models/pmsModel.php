@@ -66,12 +66,29 @@ Class pmsModel extends CI_Model
         $this->db->insert('person', $person);
         return $person;
     }
-    public function add_person2($form_policy,$person) {
-        $person['PolicyNumber'] = $form_policy;
+    public function add_person2($person) {
         $this->db->insert('person', $person);
         return $person;
     }
+    public function delete_client_dependent($policyNo,$id) {
+        $deleted = "Yes";
+         $data = array('Deleted' => $deleted);
+        $this->db->where('PolicyNumber', $policyNo);
+        $this->db->where('IDNo', $id);
+        return $this->db->update('person', $data);
+    }
+    public function delete_client($policyNo) {
+        $deleted = "Yes";
+         $data = array('Deleted' => $deleted);
+        $this->db->where('PolicyNumber', $policyNo);
+        return $this->db->update('person', $data);
+    }
 }
+
+
+
+
+
 
 
 

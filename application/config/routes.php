@@ -61,6 +61,11 @@ $route['add_dependent/(.*)'] = 'ClientController/register_dependent_view/$1';
 $route['all_client'] = 'ClientController/all_client_view';
 $route['all_payment'] = 'ClientController/all_payment_view';
 $route['register_client'] = 'ClientController/add_client';
+$route['register_client_dependent'] = 'ClientController/add_client_dependent';
+$route['delete/(.*)'] = 'ClientController/delete_client/$1';
+$route['delete_/(.*)'] = 'ClientController/delete_client_dependent/$1';
+$route['update_client_page/(.*)'] = 'ClientController/update_client_view/$1';
+$route['update_dependent_page/(.*)'] = 'ClientController/register_dependent_view/$1';
 //Staff
 $route['add_consultant'] = 'StaffController/add_consultant_view';
 $route['profile'] = 'StaffController/profile_view';
