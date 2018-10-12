@@ -1,4 +1,7 @@
- <div id="page-wrapper">
+<?php if ($this->session->flashdata('flash_Success')): ?>
+    <h2 style="text-align: center; color: green"><?php echo $this->session->flashdata('flash_Success') ?></h2>
+<?php endif ?>
+<div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Dashboard</h1>
@@ -112,6 +115,7 @@
     <!-- /#wrapper -->
 
     
+
 
 
 

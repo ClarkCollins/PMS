@@ -7,23 +7,6 @@ Class pmsModel extends CI_Model
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-    public function login($username, $password) 
-        {
-
-            $this->db->select('StaffID, Password');
-            $this->db->from('consultant');
-            $this->db->where('Username', $username);
-            $this->db->where('Password', MD5($password));
-            $this->db->limit(1);
-
-            $query = $this->db->get();
-
-            if ($query->num_rows() == 1) {
-                return true;
-            } else {
-                return false;
-            }
-        }
         
     public function getClient() 
         {
@@ -83,7 +66,30 @@ Class pmsModel extends CI_Model
         $this->db->where('PolicyNumber', $policyNo);
         return $this->db->update('person', $data);
     }
+    public function update_client($id,$data) {
+        $this->db->where('IDNo', $id);
+        return $this->db->update('person', $data);
+    }
+    public function update_client_dependent($id,$data) {
+        $this->db->where('IDNo', $id);
+        return $this->db->update('person', $data);
+    }
+//    public function update_client($id,$firstname,$lastname,$contactno,$photo,$dob,$gender) {
+//         $data = array('FirstName'=>$firstname,
+//             'Lastname'=>$lastname,
+//             'ContactNo'=>$contactno,
+//             'PicturePath'=>$photo,
+//             'DOB'=>$dob,
+//             'Gender'=>$gender);
+//        $this->db->where('IDNo', $id);
+//        return $this->db->update('person', $data);
+//    }
 }
+
+
+
+
+
 
 
 

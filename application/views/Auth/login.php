@@ -34,24 +34,27 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-6 col-sm-offset-3 form-box">
+                                    <?php if ($this->session->flashdata('flashDanger')): ?>
+                                        <h5 style="text-align: center; color: red"><?php echo $this->session->flashdata('flashDanger') ?></h5>
+                                    <?php endif ?>
                             <div class="form-top">
                                 <div class="form-top-left">
                                     <h3>Login</h3>
-                                    <p>Enter your username and password to log on:</p>
+                                    <p>Enter your staff email and password to log on:</p>
                                 </div>
                                 <div class="form-top-right">
                                     <i class="fa fa-lock"></i>
                                 </div>
                             </div>
                             <div class="form-bottom">
-                                <form role="form" action="<?php echo site_url() ?>/home" method="post" class="login-form">
+                                <form role="form" action="<?php echo site_url() ?>/login" method="post" class="login-form">
                                     <div class="form-group">
-                                        <label class="sr-only" for="form-username">Username</label>
-                                        <input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+                                        <label class="sr-only" for="email">Username</label>
+                                        <input required type="email" name="email" placeholder="Email..." class="form-email form-control" id="form-email">
                                     </div>
                                     <div class="form-group">
-                                        <label class="sr-only" for="form-password">Password</label>
-                                        <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+                                        <label class="sr-only" for="password">Password</label>
+                                        <input required type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password">
                                     </div>
                                     <button type="submit" class="btn">Sign in</button>&nbsp;
                                     <a href="#">forgot password?</a>
@@ -67,6 +70,20 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

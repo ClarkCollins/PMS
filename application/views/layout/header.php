@@ -72,10 +72,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img style="border-radius: 100%; width:23px; height:23px" src="<?php echo base_url(); ?>files/no_profile.jpeg" alt="user" class="userpicture defaultuserpic" width="100" height="100" />   Sibusiso Nkonkobe<span class="caret"></span></a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img style="border-radius: 100%; width:23px; height:23px" src="<?php echo base_url(); ?>files/no_profile.jpeg" alt="user" class="userpicture defaultuserpic" width="100" height="100" />
+                                    <?php foreach ($info->result() as $value) { ?>
+                                    <?php echo ucfirst($value->FirstName); ?>
+                                    <?php echo ucfirst($value->Lastname); ?>
+                                    <?php } ?>
+                                    <span class="caret"></span>
+                                </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="<?php echo site_url() ?>/profile"><i class="fa fa-user fa-fw"></i> Profile</a></li>
-                                    <li><a href="<?php echo site_url() ?>/"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                                    <li><a href="<?php echo site_url() ?>/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
                                 </ul>
                             </li>
                         </ul>

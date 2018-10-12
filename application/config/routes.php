@@ -65,10 +65,15 @@ $route['register_client_dependent'] = 'ClientController/add_client_dependent';
 $route['delete/(.*)'] = 'ClientController/delete_client/$1';
 $route['delete_/(.*)'] = 'ClientController/delete_client_dependent/$1';
 $route['update_client_page/(.*)'] = 'ClientController/update_client_view/$1';
-$route['update_dependent_page/(.*)'] = 'ClientController/register_dependent_view/$1';
+$route['update'] = 'ClientController/update_client';
+$route['update_dependent_page/(.*)'] = 'ClientController/update_client_dependent_view/$1';
+$route['update_'] = 'ClientController/update_client_dependent';
 //Staff
 $route['add_consultant'] = 'StaffController/add_consultant_view';
+$route['add_consultant_'] = 'StaffController/add_consultant';
 $route['profile'] = 'StaffController/profile_view';
+$route['login'] = 'loginController/staff_validation';
+$route['logout'] = 'loginController/logout';
 
 
 

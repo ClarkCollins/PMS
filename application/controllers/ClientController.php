@@ -3,6 +3,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ClientController extends CI_Controller {
+     public function __construct() {
+        parent::__construct();
+        if (!$this->session->userdata('StaffID', 'Type')) {
+            $allowed = array(
+            );
+            if (!in_array($this->router->fetch_method(), $allowed)) {
+                redirect('/');
+            }
+        }
+    }
 	public function index()
 	{
             $this->load->view('layout/header');
@@ -169,8 +179,25 @@ class ClientController extends CI_Controller {
                 $this->load->view('layout/footer');
             
         }
-        
-         public function update_client()
+        public function update_client_dependent_view($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7,$meg8)
+        {
+            $update_client = array(
+                'meg1' => $meg1,
+                'meg2' => $meg2,
+                'meg3' => $meg3,
+                'meg4' => $meg4,
+                'meg5' => $meg5,
+                'meg6' => $meg6,
+                'meg7' => $meg7,
+                'meg8' => $meg8,
+                );
+            $update_client['mType'] = $this->pmsModel->getMemberType();
+            $this->load->view('layout/header');
+                $this->load->view('dashboard/edit_client_dependent',$update_client);
+                $this->load->view('layout/footer');
+            
+        }
+         public function update_client_dependent()
 	{
             if (isset($_POST['upload'])) {
             $imgFile = $_FILES['userfile']['name'];
@@ -198,8 +225,57 @@ class ClientController extends CI_Controller {
                 
             }
             if ($userpic == NULL) {
-                $userpic = 'no_profile.jpeg';
+                $userpic = $this->input->post('db_photo');
             }
+       
+        $add_client = array();
+        $add_client['FirstName'] = $this->input->post('FirstName');
+        $add_client['LastName'] = $this->input->post('LastName');
+        $add_client['ContactNo'] = $this->input->post('ContactNo');
+        $add_client['DOB'] = $this->input->post('DOB');
+        $add_client['Gender'] = $this->input->post('Gender');
+        $add_client['PicturePath'] = $userpic;
+        $add_client['MembershipID'] = $this->input->post('MembershipID');
+        $id = $this->input->post('IDNo');
+            $this->pmsModel->update_client($id,$add_client);
+        
+        }
+        $client="Dependent Updated";
+        $this->session->set_flashdata('flash_Success', $client);
+        redirect("/all_client");
+        }   
+        
+         public function update_client()
+	{
+            if (isset($_POST['upload'])) {
+            $imgFile = $_FILES['userfile']['name'];
+            $tmp_dir = $_FILES['userfile']['tmp_name'];
+            $imgSize = $_FILES['userfile']['size'];
+            $userpic = '';
+            if ($imgFile) {
+                $upload_dir = 'files/client_photo/'; // upload directory		
+                $imgExt = strtolower(pathinfo($imgFile, PATHINFO_EXTENSION)); // get image extension
+                $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
+                $userpic = rand(1000, 1000000) . "." . $imgExt;
+
+                if (in_array($imgExt, $valid_extensions)) {
+                    if ($imgSize < 5000000) {
+                        $upload_result = move_uploaded_file($tmp_dir, $upload_dir . $userpic);
+                    } else {
+                        $this->session->set_flashdata('flash_error_large', 'photo exceeds required limit');
+                        redirect('update_client_page');
+                    }
+                } else {
+                    $this->session->set_flashdata('flash_error', 'error');
+                    redirect('update_client_page');
+                }
+            } else {
+                
+            }
+            if ($userpic == NULL) {
+                $userpic = $this->input->post('db_photo');
+            }
+            $id = $this->input->post('IDNo');
         $add_client = array();
         $add_client['FirstName'] = $this->input->post('FirstName');
         $add_client['LastName'] = $this->input->post('LastName');
@@ -208,17 +284,15 @@ class ClientController extends CI_Controller {
         $add_client['Gender'] = $this->input->post('Gender');
         $add_client['PicturePath'] = $userpic;
         $add_client['MembershipID'] = "1";  
-        $add_client_policy = array();
-        $date = date('Y-m-d');
-        $add_client_policy['InceptionDate'] = $date;
-         $this->pmsModel->add_person($add_client_policy,$add_client);
+         $this->pmsModel->update_client($id,$add_client);
         
             
         }
-        $client="Client Added";
+        $client="Client Updated";
         $this->session->set_flashdata('flash_Success', $client);
         redirect("/all_client");
         }
+        
 }
 
 

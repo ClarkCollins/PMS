@@ -1,7 +1,6 @@
 <?php if ($this->session->flashdata('flash_Success')): ?>
     <h2 style="text-align: center; color: green"><?php echo $this->session->flashdata('flash_Success') ?></h2>
 <?php endif ?>
-
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -47,7 +46,17 @@
                                            ">
                                         </a> /
                                         <?php else: ?>
-                                        <a class="fa fa-pencil-square-o" title="Edit" href=""></a> /
+                                        <a class="fa fa-pencil-square-o" title="Edit" href="<?php echo site_url() ?>/update_dependent_page/
+                                           <?php echo $value->IDNo ?>/
+                                            <?php echo $value->FirstName ?>/
+                                           <?php echo $value->Lastname ?>/
+                                           <?php echo $value->ContactNo ?>/
+                                           <?php echo $value->DOB ?>/
+                                           <?php echo $value->Gender ?>/
+                                           <?php echo $value->PicturePath ?>/
+                                           <?php echo $value->MembershipID ?>/
+                                           ">
+                                        </a> /
                                         <?php endif ?> 
                                         <?php if ($value->MembershipID == "1"): ?>
                                             <a class="fa fa-plus"  href="<?php echo site_url() ?>/add_dependent/<?php echo $value->PolicyNumber ?>/<?php echo $value->ContactNo ?>" title="Add dependent"></a> /
@@ -57,6 +66,10 @@
                                         <a class="fa fa-trash" title="Delete" href="<?php echo site_url() ?>/delete/<?php echo $value->PolicyNumber ?>"onclick="return confirm('Are you sure you want to delete this item?');"></a> /
                                             <?php else: ?>
                                         <a class="fa fa-trash" title="Delete" href="<?php echo site_url() ?>/delete_/<?php echo $value->IDNo ?>/<?php echo $value->PolicyNumber ?>"onclick="return confirm('Are you sure you want to delete this item?');"></a> /
+                                        <?php endif ?>
+                                        <?php if ($value->MembershipID == "1"): ?>
+                                        <a href="" title="Make payment">Payment</a> /
+                                        <?php else: ?>
                                         <?php endif ?>
                                         <a href="" title="View details">View</a>
                                     </td>
@@ -75,6 +88,13 @@
 
 </div>
 <!-- /#wrapper -->
+
+
+
+
+
+
+
 
 
 
