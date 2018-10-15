@@ -21,7 +21,12 @@ class HomeController extends CI_Controller {
         public function home_view()
 	{
                 $id = $this->session->userdata('StaffID');
-                $data['info'] = $this->staffModel->get_staff_details($id);
+                if($this->session->userdata('Type')== 'Supervisor'){
+                $data['info'] = $this->staffModel->get_staff_details2($id);
+                }
+                else{
+                  $data['info'] = $this->staffModel->get_staff_details($id);  
+                }
 		$this->load->view('layout/header',$data);
                 $this->load->view('dashboard/home');
                 $this->load->view('layout/footer');
@@ -29,6 +34,10 @@ class HomeController extends CI_Controller {
                 
         
 }
+
+
+
+
 
 
 

@@ -68,10 +68,15 @@ $route['update_client_page/(.*)'] = 'ClientController/update_client_view/$1';
 $route['update'] = 'ClientController/update_client';
 $route['update_dependent_page/(.*)'] = 'ClientController/update_client_dependent_view/$1';
 $route['update_'] = 'ClientController/update_client_dependent';
+$route['client_details/(.*)'] = 'ClientController/view_client_detail/$1';
+$route['payment/(.*)'] = 'ClientController/pay_premium_view/$1';
+$route['make_payment'] = 'ClientController/make_payment';
+$route['view_payment'] = 'ClientController/view_pay';
 //Staff
 $route['add_consultant'] = 'StaffController/add_consultant_view';
 $route['add_consultant_'] = 'StaffController/add_consultant';
 $route['profile'] = 'StaffController/profile_view';
+$route['profile_update'] = 'StaffController/Update_profile';
 $route['login'] = 'loginController/staff_validation';
 $route['logout'] = 'loginController/logout';
 

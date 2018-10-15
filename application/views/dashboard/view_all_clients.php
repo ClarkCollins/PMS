@@ -1,5 +1,5 @@
 <?php if ($this->session->flashdata('flash_Success')): ?>
-    <h2 style="text-align: center; color: green"><?php echo $this->session->flashdata('flash_Success') ?></h2>
+    <h4 style="text-align: center; color: green"><?php echo $this->session->flashdata('flash_Success') ?></h4>
 <?php endif ?>
 <div id="page-wrapper">
     <div class="row">
@@ -68,11 +68,25 @@
                                         <a class="fa fa-trash" title="Delete" href="<?php echo site_url() ?>/delete_/<?php echo $value->IDNo ?>/<?php echo $value->PolicyNumber ?>"onclick="return confirm('Are you sure you want to delete this item?');"></a> /
                                         <?php endif ?>
                                         <?php if ($value->MembershipID == "1"): ?>
-                                        <a href="" title="Make payment">Payment</a> /
+                                        <a href="<?php echo site_url() ?>/payment/
+                                           <?php echo $value->IDNo ?>/
+                                           <?php echo $value->PolicyNumber ?>/
+                                           <?php echo $value->FirstName ?>/
+                                           <?php echo $value->Lastname ?>/
+                                           " title="Make payment">
+                                            Payment</a> /
                                         <?php else: ?>
                                         <?php endif ?>
-                                        <a href="" title="View details">View</a>
-                                    </td>
+                                        <a href="<?php echo site_url() ?>/client_details/
+                                            <?php echo $value->FirstName ?>/
+                                           <?php echo $value->Lastname ?>/
+                                           <?php echo $value->ContactNo ?>/
+                                           <?php echo $value->DOB ?>/
+                                           <?php echo $value->Gender ?>/
+                                           <?php echo $value->PicturePath ?>/
+                                           <?php echo $value->MembershipID ?>/
+                                           " title="View details">View</a> /
+                                            <a href="<?php echo site_url() ?>/view_payment">View Payment</a>
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -88,6 +102,13 @@
 
 </div>
 <!-- /#wrapper -->
+
+
+
+
+
+
+
 
 
 

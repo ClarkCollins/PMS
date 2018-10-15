@@ -26,6 +26,16 @@ Class pmsModel extends CI_Model
         $this->db->where('policy.PolicyNumber',$policyNum);
         return $this->db->get();
     }
+    public function get_payment() 
+        {
+    }
+    public function add_payment($payment,$policyNum,$premium) {
+        $this->db->where('PolicyNumber', $policyNum);
+        $this->db->update('policy', $premium);
+        
+        $this->db->insert('payment', $payment);
+        return $payment;
+    }
      public function getMemberType() 
         {
          $main = "Main member";
@@ -85,6 +95,26 @@ Class pmsModel extends CI_Model
 //        return $this->db->update('person', $data);
 //    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

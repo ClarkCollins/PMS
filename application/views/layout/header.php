@@ -71,14 +71,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <li><a href="#">Report</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img style="border-radius: 100%; width:23px; height:23px" src="<?php echo base_url(); ?>files/no_profile.jpeg" alt="user" class="userpicture defaultuserpic" width="100" height="100" />
-                                    <?php foreach ($info->result() as $value) { ?>
+                            <li><?php foreach ($info->result() as $value) { ?>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <?php if ($value->PicturePath == "no_profile.jpeg"): ?>
+                                    <img style="border-radius: 100%; width:23px; height:23px" src="<?php echo base_url(); ?>files/<?php echo $value->PicturePath ?>" alt="user" class="userpicture defaultuserpic" width="100" height="100" />
+                                    <?php else: ?>
+                                    <img style="border-radius: 100%; width:23px; height:23px" src="<?php echo base_url(); ?>files/client_photo/<?php echo $value->PicturePath ?>" alt="user" class="userpicture defaultuserpic" width="100" height="100" />
+                                    <?php endif?>
                                     <?php echo ucfirst($value->FirstName); ?>
                                     <?php echo ucfirst($value->Lastname); ?>
-                                    <?php } ?>
                                     <span class="caret"></span>
                                 </a>
+                                 <?php } ?>
                                 <ul class="dropdown-menu">
                                     <li><a href="<?php echo site_url() ?>/profile"><i class="fa fa-user fa-fw"></i> Profile</a></li>
                                     <li><a href="<?php echo site_url() ?>/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
@@ -108,9 +112,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li>
                             <a href="#"><i class="fa fa-lock fa-fw"></i>  Account<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                <?php if ($this->session->userdata('Type') == "Supervisor"): ?>
                                 <li>
                                     <a href="<?php echo site_url() ?>/add_consultant"><i class="fa fa-user-plus" aria-hidden="true"></i> Add Consultant</a>
                                 </li>
+                                <?php endif?>
                                 <li>
                                     <a href="<?php echo site_url() ?>/profile"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
                                 </li>

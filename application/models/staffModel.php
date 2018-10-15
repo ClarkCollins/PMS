@@ -35,9 +35,17 @@ Class staffModel extends CI_Model
     }
     public function get_staff_details($id) 
         {
-        $this->db->select('person.*,staff.*,consultant.*,supervisor.*');
+        $this->db->select('person.*,staff.*, consultant.*');
         $this->db->from('person,staff,consultant,supervisor');
-        $where = "staff.StaffID='$id' AND person.IDNo='$id' AND (supervisor.SupervisorID='$id' OR consultant.ConsultantID='$id')";
+        $where = "staff.StaffID='$id' AND person.IDNo='$id' AND (consultant.ConsultantID='$id')";
+        $this->db->where($where);
+        return $this->db->get();
+    }
+     public function get_staff_details2($id) 
+        {
+        $this->db->select('person.*,staff.*,supervisor.*');
+        $this->db->from('person,staff,supervisor');
+        $where = "staff.StaffID='$id' AND person.IDNo='$id' AND supervisor.SupervisorID='$id'";
         $this->db->where($where);
         return $this->db->get();
     }
@@ -48,7 +56,110 @@ Class staffModel extends CI_Model
         $this->db->where('staff.Username',$email);
         return $this->db->get();
     }
+    public function get_office() 
+        {
+        $this->db->select('*');
+        $this->db->from('office');
+        return $this->db->get();
+    }
+//    public function check_email_exist() 
+//        {
+//        $this->db->select('*');
+//        $this->db->from('staff');
+//        return $this->db->get();
+//    }
+//    public function check_email_exist2($email) 
+//        {
+//        $this->db->select('*');
+//        $this->db->from('staff');
+//        $this->db->where('Username',$email);
+//        $where = "Type='Consultant' Or Type='Supervisor'";
+//        $this->db->where($where);
+//        return $this->db->get();
+//    }
+    public function update_profile($id,$data,$email) {
+        $this->db->where('StaffID', $id);
+        $this->db->update('staff', $email);
+        
+        $this->db->where('IDNo', $id);
+        return $this->db->update('person', $data);
+    }
+     public function checkUserExist($email) {
+        $this->db->where('Username', $email);
+        $query = $this->db->get('staff');
+
+        if ($query->num_rows() > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

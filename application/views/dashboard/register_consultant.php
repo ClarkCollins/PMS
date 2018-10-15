@@ -2,6 +2,15 @@
 <style>
     #form label{float:left; width:140px;}
     #error_msg{color:red; font-weight:bold;}
+     input:invalid + span:after {
+        content: '✖';
+        color: #f00;
+        padding-left: 5px;}
+    input:valid + span:after {
+        content: '✓';
+        color: #26b72b;
+        padding-left: 5px;
+    }
 </style>
 <script>
     $(document).ready(function () {
@@ -43,6 +52,9 @@
                     resetPasswordError();
                 });
     });</script>
+<?php if ($this->session->flashdata('flash_Success')): ?>
+    <h4 style="text-align: center; color: green"><?php echo $this->session->flashdata('flash_Success') ?></h4>
+<?php endif ?>
 
 <div id="page-wrapper">
     <div class="row">
@@ -62,35 +74,38 @@
                             <form role="form" action="<?php echo site_url() ?>/add_consultant_" enctype="multipart/form-data"  method="post">
                                 <div class="form-group">
                                     <label>First Name:</label>
-                                    <input type="text" class="form-control" placeholder="first name" name="FirstName" required>
+                                    <input value="<?php if (isset($_POST['FirstName'])) echo $_POST['FirstName']; ?>" type="text" class="form-control" placeholder="first name" name="FirstName" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Last Name:</label>
-                                    <input type="text" class="form-control" placeholder="last name" name="Lastname" required>
+                                    <input value="<?php if (isset($_POST['Lastname'])) echo $_POST['Lastname']; ?>" type="text" class="form-control" placeholder="last name" name="Lastname" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Contact Number:</label>
-                                    <input type="number" class="form-control" placeholder="contact number" name="ContactNo" required>
+                                    <input value="<?php if (isset($_POST['ContactNo'])) echo $_POST['ContactNo']; ?>" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="" class="form-control" placeholder="xxx-xxx-xxxx" name="ContactNo" required>
+                                    <span class="validity"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Location:</label>
-                                    <select required class="form-control" name="location" required>
+                                    <select  value="<?php if (isset($_POST['location'])) echo $_POST['location']; ?>" required class="form-control" name="location" required>
                                         <option value="">--Select Location--</option>
-                                        <option value="East London">East London</option>
-                                        <option value="Cathcart">Cathcart</option>
+                                        <?php foreach ($info2->result() as $value) { ?>
+                                                    <option value="<?php echo $value->OfficeID ?>"><?php echo $value->Address ?></option>
+                                                <?php } ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Email:</label>
-                                    <input type="email" class="form-control" placeholder="email" name="email" required>
+                                    <input value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" type="email" class="form-control" placeholder="email" name="email" required>
+                                    <?php echo form_error('email'); ?>
                                 </div>
                                 <div class="form-group">
                                     <label>Password:</label>
-                                    <input id="password"  name="password" type="password" class="form-control" placeholder="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" onkeyup='check();'>
+                                    <input value="<?php if (isset($_POST['password'])) echo $_POST['password']; ?>" id="password"  name="password" type="password" class="form-control" placeholder="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" onkeyup='check();'>
                                 </div>
                                 <div class="form-group">
                                     <label>Confirm Password:</label>
-                                    <input id="confirm_password" name="confirm_password" type="password" class="form-control" placeholder="confirm password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" onkeyup='check();'>
+                                    <input value="<?php if (isset($_POST['confirm_password'])) echo $_POST['confirm_password']; ?>" id="confirm_password" name="confirm_password" type="password" class="form-control" placeholder="confirm password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" onkeyup='check();'>
                                 </div>
                                 <div class="form-group input-group">
                                     <input name="upload" id="submit_btn" type="submit" class="form-control" value="Save"/>
@@ -111,6 +126,17 @@
 
 </div>
 <!-- /#wrapper -->
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -21,31 +21,59 @@ class ClientController extends CI_Controller {
     }
         public function register_view()
 	{
+                $id = $this->session->userdata('StaffID');
+                if($this->session->userdata('Type')== 'Supervisor'){
+                $dataMember['info'] = $this->staffModel->get_staff_details2($id);
+                }
+                else{
+                  $dataMember['info'] = $this->staffModel->get_staff_details($id);  
+                }
                 $dataMember['mType'] = $this->pmsModel->getMemberType();
-		$this->load->view('layout/header');
+		$this->load->view('layout/header',$dataMember);
                 $this->load->view('dashboard/register_client',$dataMember);
                 $this->load->view('layout/footer');
 	}
         public function register_dependent_view($meg1,$meg2)
         {
+            $id = $this->session->userdata('StaffID');
+                if($this->session->userdata('Type')== 'Supervisor'){
+                $data['info'] = $this->staffModel->get_staff_details2($id);
+                }
+                else{
+                  $data['info'] = $this->staffModel->get_staff_details($id);  
+                }
                 $dataMember = array(
                 'meg1' => $meg1,'meg2' => $meg2,);
                 $dataMember['mType'] = $this->pmsModel->getMemberType();
-		$this->load->view('layout/header');
+		$this->load->view('layout/header',$data);
                 $this->load->view('dashboard/register_client_dependent',$dataMember);
                 $this->load->view('layout/footer');
 	}
         public function all_client_view()
 	{
+            $id = $this->session->userdata('StaffID');
+                if($this->session->userdata('Type')== 'Supervisor'){
+                $data['info'] = $this->staffModel->get_staff_details2($id);
+                }
+                else{
+                  $data['info'] = $this->staffModel->get_staff_details($id);  
+                }
                 $data['allClient'] = $this->pmsModel->getClient();
-		$this->load->view('layout/header');
+		$this->load->view('layout/header',$data);
                 $this->load->view('dashboard/view_all_clients',$data);
                 $this->load->view('layout/footer');
 	}
         public function all_payment_view()
 	{
-		$this->load->view('layout/header');
-                $this->load->view('dashboard/view_all_payments');
+            $id = $this->session->userdata('StaffID');
+                if($this->session->userdata('Type')== 'Supervisor'){
+                $data['info'] = $this->staffModel->get_staff_details2($id);
+                }
+                else{
+                  $data['info'] = $this->staffModel->get_staff_details($id);  
+                }
+		$this->load->view('layout/header',$data);
+                $this->load->view('dashboard/view_all_payments',$data);
                 $this->load->view('layout/footer');
 	}
         public function add_client()
@@ -165,6 +193,13 @@ class ClientController extends CI_Controller {
         
         public function update_client_view($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7)
         {
+            $id = $this->session->userdata('StaffID');
+                if($this->session->userdata('Type')== 'Supervisor'){
+                $data['info'] = $this->staffModel->get_staff_details2($id);
+                }
+                else{
+                  $data['info'] = $this->staffModel->get_staff_details($id);  
+                }
             $update_client = array(
                 'meg1' => $meg1,
                 'meg2' => $meg2,
@@ -174,13 +209,44 @@ class ClientController extends CI_Controller {
                 'meg6' => $meg6,
                 'meg7' => $meg7,
                 );
-            $this->load->view('layout/header');
+            $this->load->view('layout/header',$data);
                 $this->load->view('dashboard/edit_client',$update_client);
+                $this->load->view('layout/footer');
+            
+        }
+        public function view_client_detail($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7)
+        {
+            $id = $this->session->userdata('StaffID');
+                if($this->session->userdata('Type')== 'Supervisor'){
+                $data['info'] = $this->staffModel->get_staff_details2($id);
+                }
+                else{
+                  $data['info'] = $this->staffModel->get_staff_details($id);  
+                }
+            $update_client = array(
+                'meg1' => $meg1,
+                'meg2' => $meg2,
+                'meg3' => $meg3,
+                'meg4' => $meg4,
+                'meg5' => $meg5,
+                'meg6' => $meg6,
+                'meg7' => $meg7,
+                );
+            $data['mType'] = $this->pmsModel->getMemberType();
+            $this->load->view('layout/header',$data);
+                $this->load->view('dashboard/view_client_detail',$update_client);
                 $this->load->view('layout/footer');
             
         }
         public function update_client_dependent_view($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7,$meg8)
         {
+            $id = $this->session->userdata('StaffID');
+               if($this->session->userdata('Type')== 'Supervisor'){
+                $data['info'] = $this->staffModel->get_staff_details2($id);
+                }
+                else{
+                  $data['info'] = $this->staffModel->get_staff_details($id);  
+                }
             $update_client = array(
                 'meg1' => $meg1,
                 'meg2' => $meg2,
@@ -192,7 +258,7 @@ class ClientController extends CI_Controller {
                 'meg8' => $meg8,
                 );
             $update_client['mType'] = $this->pmsModel->getMemberType();
-            $this->load->view('layout/header');
+            $this->load->view('layout/header',$data);
                 $this->load->view('dashboard/edit_client_dependent',$update_client);
                 $this->load->view('layout/footer');
             
@@ -293,10 +359,77 @@ class ClientController extends CI_Controller {
         redirect("/all_client");
         }
         
+        public function pay_premium_view($meg1,$meg2,$meg3,$meg4)
+        {
+            $id = $this->session->userdata('StaffID');
+               if($this->session->userdata('Type')== 'Supervisor'){
+                $data['info'] = $this->staffModel->get_staff_details2($id);
+                }
+                else{
+                  $data['info'] = $this->staffModel->get_staff_details($id);  
+                }
+            $update_client = array(
+                'meg1' => $meg1,
+                'meg2' => $meg2,
+                'meg3' => $meg3,
+                'meg4' => $meg4,
+                );
+            $this->load->view('layout/header',$data);
+                $this->load->view('dashboard/pay_premium',$update_client);
+                $this->load->view('layout/footer');
+            
+        }
+         public function make_payment()
+        {
+             $id = $this->session->userdata('StaffID');
+             if($this->session->userdata('Type')== 'Supervisor')
+             {
+                 $location['data'] =  $this->staffModel->get_staff_details2($id);
+              foreach ($location['data']->result() as $row) {
+                   $officeID = $row->OfficeID;
+              }
+              $policyNum = $this->input->post('PolicyNumber');
+              $premium['Premium'] = $this->input->post('Amount');
+        $add_payment = array();
+        $add_payment['ClientID'] = $this->input->post('ClientID');
+        $add_payment['OfficeID'] = $officeID;
+        $add_payment['StaffID'] = $this->session->userdata('StaffID');
+        $add_payment['Date'] = date('Y-m-d');
+        $add_payment['Amount'] = $this->input->post('Amount');  
+         $this->pmsModel->add_payment($add_payment,$policyNum,$premium);
+         
+         $client="Payment added";
+        $this->session->set_flashdata('flash_Success', $client);
+        redirect("/all_client");
+             }else{
+                $location['data'] =  $this->staffModel->get_staff_details($id);
+                  foreach ($location['data']->result() as $row) {
+                   $officeID = $row->Location; 
+             }
+              $policyNum = $this->input->post('PolicyNumber');
+              $premium['Premium'] = $this->input->post('Amount');
+        $add_payment = array();
+        $add_payment['ClientID'] = $this->input->post('ClientID');
+        $add_payment['OfficeID'] = $officeID;
+        $add_payment['StaffID'] = $this->session->userdata('StaffID');
+        $add_payment['Date'] = date('Y-m-d');
+        $add_payment['Amount'] = $this->input->post('Amount');  
+         $this->pmsModel->add_payment($add_payment,$policyNum,$premium);
+         
+         $client="Payment added";
+        $this->session->set_flashdata('flash_Success', $client);
+        redirect("/all_client");
+            
+        }
 }
+public function view_pay()
+        {
+                $this->load->view('dashboard/payment_receipt');
+            
+        }
 
 
-
+}
 
 
 
