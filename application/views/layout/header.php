@@ -28,6 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- Datatables CSS -->
         <link href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>assets/css/dataTables.responsive.css" rel="stylesheet">
+      <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/print.css" media="print">
 
         <title>Payment Management System</title>
         <style>
@@ -53,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <body>
         <div id="wrapper">
 
-            <nav class="navbar navbar-inverse">
+            <nav id="navbar" class="navbar navbar-inverse">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -65,8 +66,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
-                            <li id="header-nav"><a href="#">Home</a></li>
-                            <li><a href="#">Payments</a></li>
+                            <li id="header-nav"><a href="<?php echo site_url() ?>/home">Home</a></li>
+                            <li><a href="<?php echo site_url() ?>/all_payment">Payments</a></li>
                             <li><a href="<?php echo site_url() ?>/all_client">Clients</a></li>
                             <li><a href="#">Report</a></li>
                         </ul>
@@ -93,7 +94,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             </nav>
             <!--        ===========================Start of Side Nav========================-->
-            <div class="navbar-default sidebar" role="navigation">
+            <div id="navbar" class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
@@ -106,7 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <a href="<?php echo site_url() ?>/all_client"><i class="fa fa-users fa-fw"></i> Clients</a>
                         </li>
                         <li>
-                            <a href="forms.html"><i class="fa fa-line-chart fa-fw"></i> Reports</a>
+                            <a href="<?php echo site_url() ?>/reports"><i class="fa fa-line-chart fa-fw"></i> Reports</a>
                         </li>
 
                         <li>

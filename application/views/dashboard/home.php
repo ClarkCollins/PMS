@@ -15,7 +15,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <b style="font-size: 50px">R0.00</b>
+                                    <b style="font-size: 50px">(sum payments)</b>
                                 </div>
                                 <div class="col-xs-9 text-right">
 <!--                                    <div class="huge">26</div>
@@ -23,9 +23,9 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="<?php echo site_url() ?>/all_payment">
                             <div class="panel-footer">
-                                <span class="pull-left">Make Payment</span>
+                                <span class="pull-left">View Payments</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>

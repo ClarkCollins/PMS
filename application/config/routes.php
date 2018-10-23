@@ -71,7 +71,7 @@ $route['update_'] = 'ClientController/update_client_dependent';
 $route['client_details/(.*)'] = 'ClientController/view_client_detail/$1';
 $route['payment/(.*)'] = 'ClientController/pay_premium_view/$1';
 $route['make_payment'] = 'ClientController/make_payment';
-$route['view_payment'] = 'ClientController/view_pay';
+$route['view_payment/(.*)'] = 'ClientController/view_pay/$1';
 //Staff
 $route['add_consultant'] = 'StaffController/add_consultant_view';
 $route['add_consultant_'] = 'StaffController/add_consultant';
@@ -79,6 +79,8 @@ $route['profile'] = 'StaffController/profile_view';
 $route['profile_update'] = 'StaffController/Update_profile';
 $route['login'] = 'loginController/staff_validation';
 $route['logout'] = 'loginController/logout';
+$route['reports'] = 'ReportController/reports_view';
+$route['reports_'] = 'ReportController/reports_view_staff';
 
 
 

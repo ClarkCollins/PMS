@@ -85,8 +85,7 @@
                                            <?php echo $value->Gender ?>/
                                            <?php echo $value->PicturePath ?>/
                                            <?php echo $value->MembershipID ?>/
-                                           " title="View details">View</a> /
-                                            <a href="<?php echo site_url() ?>/view_payment">View Payment</a>
+                                           " title="View details">View</a>
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -102,6 +101,7 @@
 
 </div>
 <!-- /#wrapper -->
+
 
 
 

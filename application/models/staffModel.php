@@ -60,6 +60,7 @@ Class staffModel extends CI_Model
         {
         $this->db->select('*');
         $this->db->from('office');
+        $this->db->order_by('City');
         return $this->db->get();
     }
 //    public function check_email_exist() 
@@ -96,6 +97,7 @@ Class staffModel extends CI_Model
     }
     
 }
+
 
 
 

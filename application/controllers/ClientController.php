@@ -72,6 +72,8 @@ class ClientController extends CI_Controller {
                 else{
                   $data['info'] = $this->staffModel->get_staff_details($id);  
                 }
+                $data['payment'] = $this->paymentModel->get_payment(); 
+                
 		$this->load->view('layout/header',$data);
                 $this->load->view('dashboard/view_all_payments',$data);
                 $this->load->view('layout/footer');
@@ -156,7 +158,14 @@ class ClientController extends CI_Controller {
             if ($userpic == NULL) {
                 $userpic = 'no_profile.jpeg';
             }
-       
+            $pol = $this->input->post('PolicyNumber');
+       $no_dep['dp'] = $this->pmsModel->getPolicy($pol);
+       foreach ($no_dep['dp']->result() as $row) {
+            $dep = $row->NoDependent;
+            $pre = $row->Premium;
+        }
+        $cal = $dep + 1;
+        $cal2 = $pre + 10;
         $add_client = array();
         $add_client['FirstName'] = $this->input->post('FirstName');
         $add_client['LastName'] = $this->input->post('LastName');
@@ -166,7 +175,11 @@ class ClientController extends CI_Controller {
         $add_client['PicturePath'] = $userpic;
         $add_client['MembershipID'] = $this->input->post('MembershipID');
         $add_client['PolicyNumber'] = $this->input->post('PolicyNumber');
-            $this->pmsModel->add_person2($add_client);
+        $p_num = $this->input->post('PolicyNumber');
+        $update_policy = array();
+        $update_policy['NoDependent'] = $cal;
+        $update_policy['Premium'] = $cal2;
+            $this->pmsModel->add_person2($add_client,$update_policy,$p_num);
         
         }
         $client="Dependent Added";
@@ -396,11 +409,11 @@ class ClientController extends CI_Controller {
         $add_payment['StaffID'] = $this->session->userdata('StaffID');
         $add_payment['Date'] = date('Y-m-d');
         $add_payment['Amount'] = $this->input->post('Amount');  
-         $this->pmsModel->add_payment($add_payment,$policyNum,$premium);
+         $this->paymentModel->add_payment($add_payment,$policyNum,$premium);
          
          $client="Payment added";
         $this->session->set_flashdata('flash_Success', $client);
-        redirect("/all_client");
+        redirect('all_payment');
              }else{
                 $location['data'] =  $this->staffModel->get_staff_details($id);
                   foreach ($location['data']->result() as $row) {
@@ -414,17 +427,30 @@ class ClientController extends CI_Controller {
         $add_payment['StaffID'] = $this->session->userdata('StaffID');
         $add_payment['Date'] = date('Y-m-d');
         $add_payment['Amount'] = $this->input->post('Amount');  
-         $this->pmsModel->add_payment($add_payment,$policyNum,$premium);
+         $this->paymentModel->add_payment($add_payment,$policyNum,$premium);
          
          $client="Payment added";
         $this->session->set_flashdata('flash_Success', $client);
-        redirect("/all_client");
+        redirect('all_payment');
             
         }
 }
-public function view_pay()
+public function view_pay($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7,$meg8, $meg9,$meg10, $meg11)
         {
-                $this->load->view('dashboard/payment_receipt');
+    $values = array(
+                'meg1' => $meg1,
+            'meg2' => $meg2,
+            'meg3' => $meg3,
+            'meg4' => $meg4,
+            'meg5' => $meg5,
+            'meg6' => $meg6,
+            'meg7' => $meg7,
+            'meg8' => $meg8,
+            'meg9' => $meg9,
+            'meg10' => $meg10,
+            'meg11' => $meg11,
+        );
+                $this->load->view('dashboard/payment_receipt',$values);
             
         }
 

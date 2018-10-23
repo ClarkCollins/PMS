@@ -40,21 +40,21 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <address>
-                                <strong>SENZOKUHLE FUNERSL SERVICE </strong>
+                                <strong>SENZOKUHLE FUNERAL SERVICE </strong>
                                 <br>
-                                2135 Sunset Blvd
-                                <br>
-                                Los Angeles, CA 90026
+                                <?php echo $meg6 ?><br>
+                                <?php echo $meg7 ?><br>
+                                <?php echo $meg8 ?>
                                 <br>
                                 <abbr title="Phone">P:</abbr> (+27)71-353-5461
                             </address>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                             <p>
-                                <em>Date: 1st November, 2013</em>
+                                <em>Date: <?php $date=new DateTime($meg9); echo date_format($date,"d-M-Y"); ?></em>
                             </p>
                             <p>
-                                <em>Invoice No. 34522677W</em>
+                                <em>Invoice No. <?php echo $meg5 ?></em>
                             </p>
                         </div>
                     </div>
@@ -68,16 +68,16 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Policy No.</th>
-                                    <th class="text-center">Price</th>
+                                    <th class="text-center">Amount</th>
                                     <th class="text-center">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="col-md-4"><em>Sibusiso Nkonkobe</em></h4></td>
-                                    <td class="col-md-2"> 2 </td>
-                                    <td class="col-md-1 text-center">R13</td>
-                                    <td class="col-md-1 text-center">R26</td>
+                                    <td class="col-md-4"><?php echo $meg1." ".$meg2?></td>
+                                    <td class="col-md-2"> <?php echo $meg10 ?> </td>
+                                    <td class="col-md-1 text-center"><?php echo "R".$meg11 ?></td>
+                                    <td class="col-md-1 text-center"><?php echo "R".$meg11 ?></td>
                                 </tr>
                                 <tr>
                                 <tr>
@@ -92,17 +92,17 @@
                                         </p></td>
                                     <td class="text-center">
                                         <p>
-                                            <strong>R6.94</strong>
+                                            <strong><?php echo "R".round($meg11 - ($meg11/15),2) ?></strong>
                                         </p>
                                         <p>
-                                            <strong>R6.94</strong>
+                                            <strong><?php echo "R".round($meg11/15,2) ?></strong>
                                         </p></td>
                                 </tr>
                                 <tr>
                                     <td>   </td>
                                     <td>   </td>
                                     <td class="text-right"><h4><strong>Total: </strong></h4></td>
-                                    <td class="text-center text-danger"><h4><strong>R31.53</strong></h4></td>
+                                    <td class="text-center text-danger"><h4><strong><?php echo "R".$meg11 ?></strong></h4></td>
                                 </tr>
                             </tbody>
                         </table>

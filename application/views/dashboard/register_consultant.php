@@ -90,7 +90,7 @@
                                     <select  value="<?php if (isset($_POST['location'])) echo $_POST['location']; ?>" required class="form-control" name="location" required>
                                         <option value="">--Select Location--</option>
                                         <?php foreach ($info2->result() as $value) { ?>
-                                                    <option value="<?php echo $value->OfficeID ?>"><?php echo $value->Address ?></option>
+                                                    <option value="<?php echo $value->OfficeID ?>"><?php echo $value->City ?></option>
                                                 <?php } ?>
                                     </select>
                                 </div>
@@ -126,6 +126,7 @@
 
 </div>
 <!-- /#wrapper -->
+
 
 
 
