@@ -73,6 +73,7 @@
                                            <?php echo $value->PolicyNumber ?>/
                                            <?php echo $value->FirstName ?>/
                                            <?php echo $value->Lastname ?>/
+                                           <?php echo $value->Premium ?>/
                                            " title="Make payment">
                                             Payment</a> /
                                         <?php else: ?>
@@ -101,6 +102,7 @@
 
 </div>
 <!-- /#wrapper -->
+
 
 
 

@@ -372,7 +372,7 @@ class ClientController extends CI_Controller {
         redirect("/all_client");
         }
         
-        public function pay_premium_view($meg1,$meg2,$meg3,$meg4)
+        public function pay_premium_view($meg1,$meg2,$meg3,$meg4,$meg5)
         {
             $id = $this->session->userdata('StaffID');
                if($this->session->userdata('Type')== 'Supervisor'){
@@ -386,6 +386,8 @@ class ClientController extends CI_Controller {
                 'meg2' => $meg2,
                 'meg3' => $meg3,
                 'meg4' => $meg4,
+                'meg5' => $meg5,
+                
                 );
             $this->load->view('layout/header',$data);
                 $this->load->view('dashboard/pay_premium',$update_client);

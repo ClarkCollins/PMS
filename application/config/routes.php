@@ -79,8 +79,9 @@ $route['profile'] = 'StaffController/profile_view';
 $route['profile_update'] = 'StaffController/Update_profile';
 $route['login'] = 'loginController/staff_validation';
 $route['logout'] = 'loginController/logout';
-$route['reports'] = 'ReportController/reports_view';
+$route['reports'] = 'ReportController/reports';
 $route['reports_'] = 'ReportController/reports_view_staff';
+$route['location_report'] = 'ReportController/reports_view';
 
 
 

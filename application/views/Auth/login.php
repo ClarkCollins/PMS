@@ -50,7 +50,7 @@
                                 <form role="form" action="<?php echo site_url() ?>/login" method="post" class="login-form">
                                     <div class="form-group">
                                         <label class="sr-only" for="email">Username</label>
-                                        <input required type="email" name="email" placeholder="Email..." class="form-email form-control" id="form-email">
+                                        <input required type="text" name="email" placeholder="Email..." class="form-email form-control" id="form-email">
                                     </div>
                                     <div class="form-group">
                                         <label class="sr-only" for="password">Password</label>
@@ -70,6 +70,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 </html>
+
+
 
 
 

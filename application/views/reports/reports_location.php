@@ -9,12 +9,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="fa fa-line-chart fa-fw"></i> Reports 
-                    <a href="<?php echo site_url() ?>/reports_"> Staff Report</a>
                 </div>
                 <div class="panel-body">
                     <p><b>Offices with the most payment:</b></p>
                     <?php echo form_error('e_date'); ?>
-                    <form action="<?php echo site_url() ?>/reports" enctype="multipart/form-data"  method="post" role="form">
+                    <form action="<?php echo site_url() ?>/location_report" enctype="multipart/form-data"  method="post" role="form">
                         <div id="form" class="row">
                             <!--                            <div class="col-md-3 mb-3">
                                                                     <div class="form-group">
@@ -106,6 +105,8 @@
 
 </div>
 <!-- /#wrapper -->
+
+
 
 
 

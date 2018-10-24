@@ -11,21 +11,10 @@
                     <i class="fa fa-line-chart fa-fw"></i> Reports
                 </div>
                 <div class="panel-body">
-                    <p><b>Staff with the most payment:</b></p>
+                    <p><b>Total payment per consultant:</b></p>
                     <?php echo form_error('e_date'); ?>
                     <form action="<?php echo site_url() ?>/reports_" enctype="multipart/form-data"  method="post" role="form">
                         <div id="form" class="row">
-                            <!--                            <div class="col-md-3 mb-3">
-                                                                    <div class="form-group">
-                                                                        <label>Location:</label>
-                                                                        <select required class="form-control" name="Location">
-                                                                            <option value="">--Select location--</option>
-                            <?php foreach ($info2->result() as $value) { ?>
-                                                                                            <option value="<?php echo $value->OfficeID ?>"><?php echo $value->City ?></option>
-                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                        </div>-->
                             <div class="col-md-3 mb-3">
                                 <div class="form-group">
                                     <label>Start Date:</label>
@@ -46,7 +35,8 @@
                             </div>
                         </div>
                     </form>
-
+<?php if($staff->result() != null):?>
+                    
                     <div class="col-md-12 mb-2">
                         <div class="form-group">
                             <label for="sel1"></label>
@@ -82,7 +72,10 @@
                                 </tbody>
                             </table>
                         </div>
-
+                    <?php else:?>
+                    <div align="center" style="width: 900px; height: 300px;"><br><br><br>
+                        No data found.</div>  
+<?php endif?>
                 </div>
                 <!-- /.panel-body -->
             </div>
@@ -94,6 +87,16 @@
 
 </div>
 <!-- /#wrapper -->
+
+
+
+
+
+
+
+
+
+
 
 
 

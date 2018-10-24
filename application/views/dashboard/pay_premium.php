@@ -23,6 +23,10 @@
                                             <input readonly  type="text" value="<?php echo $meg2; ?>" class="form-control" name="PolicyNumber">
                                         </div>
                                         <div class="form-group">
+                                            <label>Monthly premium:</label>
+                                            <input type="text" readonly min="100" value="<?php echo "R ".$meg5; ?>" class="form-control" placeholder="Primium amount" name="Amount" required>
+                                        </div>
+                                        <div class="form-group">
                                             <label>First Name:</label>
                                             <input readonly type="text" value="<?php echo $meg3; ?>" class="form-control" placeholder="first name" name="FirstName" required>
                                         </div>
@@ -53,6 +57,13 @@
 
 </div>
 <!-- /#wrapper -->
+
+
+
+
+
+
+
 
 
 

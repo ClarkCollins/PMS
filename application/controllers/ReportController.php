@@ -79,5 +79,17 @@ class ReportController extends CI_Controller {
             return false;
         }
     }
+    
+    function reports() {
+             $id = $this->session->userdata('StaffID');
+            if ($this->session->userdata('Type') == 'Supervisor') {
+                $data['info'] = $this->staffModel->get_staff_details2($id);
+            } else {
+                $data['info'] = $this->staffModel->get_staff_details($id);
+            }
+            $this->load->view('layout/header', $data);
+            $this->load->view('reports/reports', $data);
+            $this->load->view('layout/footer');
+    }
 
 }

@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- Datatables CSS -->
         <link href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>assets/css/dataTables.responsive.css" rel="stylesheet">
-      <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/print.css" media="print">
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/print.css" media="print">
 
         <title>Payment Management System</title>
         <style>
@@ -73,17 +73,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li><?php foreach ($info->result() as $value) { ?>
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <?php if ($value->PicturePath == "no_profile.jpeg"): ?>
-                                    <img style="border-radius: 100%; width:23px; height:23px" src="<?php echo base_url(); ?>files/<?php echo $value->PicturePath ?>" alt="user" class="userpicture defaultuserpic" width="100" height="100" />
-                                    <?php else: ?>
-                                    <img style="border-radius: 100%; width:23px; height:23px" src="<?php echo base_url(); ?>files/client_photo/<?php echo $value->PicturePath ?>" alt="user" class="userpicture defaultuserpic" width="100" height="100" />
-                                    <?php endif?>
-                                    <?php echo ucfirst($value->FirstName); ?>
-                                    <?php echo ucfirst($value->Lastname); ?>
-                                    <span class="caret"></span>
-                                </a>
-                                 <?php } ?>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        <?php if ($value->PicturePath == "no_profile.jpeg"): ?>
+                                            <img style="border-radius: 100%; width:23px; height:23px" src="<?php echo base_url(); ?>files/<?php echo $value->PicturePath ?>" alt="user" class="userpicture defaultuserpic" width="100" height="100" />
+                                        <?php else: ?>
+                                            <img style="border-radius: 100%; width:23px; height:23px" src="<?php echo base_url(); ?>files/client_photo/<?php echo $value->PicturePath ?>" alt="user" class="userpicture defaultuserpic" width="100" height="100" />
+                                        <?php endif ?>
+                                        <?php echo ucfirst($value->FirstName); ?>
+                                        <?php echo ucfirst($value->Lastname); ?>
+                                        <span class="caret"></span>
+                                    </a>
+                                <?php } ?>
                                 <ul class="dropdown-menu">
                                     <li><a href="<?php echo site_url() ?>/profile"><i class="fa fa-user fa-fw"></i> Profile</a></li>
                                     <li><a href="<?php echo site_url() ?>/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
@@ -106,18 +106,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li>
                             <a href="<?php echo site_url() ?>/all_client"><i class="fa fa-users fa-fw"></i> Clients</a>
                         </li>
-                        <li>
-                            <a href="<?php echo site_url() ?>/reports"><i class="fa fa-line-chart fa-fw"></i> Reports</a>
+                        <li> <?php if ($this->session->userdata('Type') == "Supervisor"): ?>
+                                <a href="<?php echo site_url() ?>/reports"><i class="fa fa-line-chart fa-fw"></i> Reports</a>
+                            <?php endif ?>
                         </li>
 
                         <li>
                             <a href="#"><i class="fa fa-lock fa-fw"></i>  Account<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <?php if ($this->session->userdata('Type') == "Supervisor"): ?>
-                                <li>
-                                    <a href="<?php echo site_url() ?>/add_consultant"><i class="fa fa-user-plus" aria-hidden="true"></i> Add Consultant</a>
-                                </li>
-                                <?php endif?>
+                                    <li>
+                                        <a href="<?php echo site_url() ?>/add_consultant"><i class="fa fa-user-plus" aria-hidden="true"></i> Add Consultant</a>
+                                    </li>
+                                <?php endif ?>
                                 <li>
                                     <a href="<?php echo site_url() ?>/profile"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
                                 </li>
