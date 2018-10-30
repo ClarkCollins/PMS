@@ -40,6 +40,18 @@
                                 <?php else: ?>
                                     <img src="<?php echo base_url(); ?>files/client_photo/<?php echo $meg6 ?>" alt="user photo" style="display:block; margin-left: auto; margin-right: auto;width:150px;height:150px;outline: #4CAF50 solid 2px;outline-style:dotted;">
                                 <?php endif ?>
+                                    <div class="form-group">
+                                    <?php foreach ($total_pay->result() as $value) { ?>
+                                        <?php if ($meg8 == $value->ClientID && $meg9 > $value->total): ?>
+                                             <label>Status:</label>  
+                                             <input readonly type="text" class="form-control" value="Not Good Standing">
+                                             <?php else:?>
+                                             <label>Status:</label> 
+                                              <input readonly type="text" class="form-control" value="Good Standing">
+                                            <?php endif?>
+                                        <?php } ?>
+                                    </div>
+                                   
                                 <div class="form-group">
                                     <label>First Name:</label>
                                     <input readonly type="text" class="form-control" value="<?php echo $meg1 ?>" placeholder="first name" name="FirstName" required>
@@ -97,6 +109,23 @@
 
 </div>
 <!-- /#wrapper -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

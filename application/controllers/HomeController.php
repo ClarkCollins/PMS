@@ -27,6 +27,7 @@ class HomeController extends CI_Controller {
                 else{
                   $data['info'] = $this->staffModel->get_staff_details($id);  
                 }
+                $data['info1'] = $this->paymentModel->total_payment(); 
 		$this->load->view('layout/header',$data);
                 $this->load->view('dashboard/home');
                 $this->load->view('layout/footer');
@@ -34,6 +35,7 @@ class HomeController extends CI_Controller {
                 
         
 }
+
 
 
 

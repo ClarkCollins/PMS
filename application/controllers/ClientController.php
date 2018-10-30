@@ -59,6 +59,7 @@ class ClientController extends CI_Controller {
                   $data['info'] = $this->staffModel->get_staff_details($id);  
                 }
                 $data['allClient'] = $this->pmsModel->getClient();
+                $data['memType'] = $this->pmsModel->getMemberType2();
 		$this->load->view('layout/header',$data);
                 $this->load->view('dashboard/view_all_clients',$data);
                 $this->load->view('layout/footer');
@@ -196,9 +197,17 @@ class ClientController extends CI_Controller {
         }
         public function delete_client_dependent()
         {
+            
             $id = $this->uri->segment(2);
             $policyNumber = $this->uri->segment(3);
-            $this->pmsModel->delete_client_dependent($policyNumber,$id);
+             $up_policy['policy'] = $this->pmsModel->getPolicy($policyNumber);
+       foreach ($up_policy['policy']->result() as $row) {
+            $dep = $row->NoDependent;
+            $pre = $row->Premium;
+        }
+        $cal_dep = $dep - 1;
+        $cal_pre = $pre - 10;
+            $this->pmsModel->delete_client_dependent($policyNumber,$id,$cal_dep,$cal_pre);
             $client="Dependent Deleted";
         $this->session->set_flashdata('flash_Success', $client);
         redirect("/all_client");
@@ -227,7 +236,7 @@ class ClientController extends CI_Controller {
                 $this->load->view('layout/footer');
             
         }
-        public function view_client_detail($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7)
+        public function view_client_detail($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7,$meg8,$meg9)
         {
             $id = $this->session->userdata('StaffID');
                 if($this->session->userdata('Type')== 'Supervisor'){
@@ -244,8 +253,11 @@ class ClientController extends CI_Controller {
                 'meg5' => $meg5,
                 'meg6' => $meg6,
                 'meg7' => $meg7,
+                'meg8' => $meg8,
+                'meg9' => $meg9,
                 );
             $data['mType'] = $this->pmsModel->getMemberType();
+            $data['total_pay'] = $this->paymentModel->total_payment_client($meg8);
             $this->load->view('layout/header',$data);
                 $this->load->view('dashboard/view_client_detail',$update_client);
                 $this->load->view('layout/footer');
@@ -372,7 +384,7 @@ class ClientController extends CI_Controller {
         redirect("/all_client");
         }
         
-        public function pay_premium_view($meg1,$meg2,$meg3,$meg4,$meg5)
+        public function pay_premium_view($meg1,$meg2,$meg3,$meg4,$meg5,$meg6)
         {
             $id = $this->session->userdata('StaffID');
                if($this->session->userdata('Type')== 'Supervisor'){
@@ -387,8 +399,10 @@ class ClientController extends CI_Controller {
                 'meg3' => $meg3,
                 'meg4' => $meg4,
                 'meg5' => $meg5,
+                'meg6' => $meg6,
                 
                 );
+            $data['total_pay'] = $this->paymentModel->total_payment_client($meg1);
             $this->load->view('layout/header',$data);
                 $this->load->view('dashboard/pay_premium',$update_client);
                 $this->load->view('layout/footer');
@@ -404,16 +418,23 @@ class ClientController extends CI_Controller {
                    $officeID = $row->OfficeID;
               }
               $policyNum = $this->input->post('PolicyNumber');
-              $premium['Premium'] = $this->input->post('Amount');
+               $policy['policy'] =  $this->paymentModel->get_payment_policy($policyNum);
+              foreach ($policy['policy']->result() as $row) {
+                   $payed = $row->Payed; 
+                   $premium_amount = $row->Premium; 
+             }
+             $sum = $payed + $premium_amount;
+              $premium['Payed'] = $sum;
         $add_payment = array();
         $add_payment['ClientID'] = $this->input->post('ClientID');
         $add_payment['OfficeID'] = $officeID;
         $add_payment['StaffID'] = $this->session->userdata('StaffID');
         $add_payment['Date'] = date('Y-m-d');
         $add_payment['Amount'] = $this->input->post('Amount');  
+        $add_payment['Time'] = date("h:i:s", time() - 3600);   
          $this->paymentModel->add_payment($add_payment,$policyNum,$premium);
          
-         $client="Payment added";
+         $client="Payment Successful";
         $this->session->set_flashdata('flash_Success', $client);
         redirect('all_payment');
              }else{
@@ -422,7 +443,13 @@ class ClientController extends CI_Controller {
                    $officeID = $row->Location; 
              }
               $policyNum = $this->input->post('PolicyNumber');
-              $premium['Premium'] = $this->input->post('Amount');
+              $policy['policy'] =  $this->paymentModel->get_payment_policy($policyNum);
+             foreach ($policy['policy']->result() as $row) {
+                   $payed = $row->Payed; 
+                   $premium_amount = $row->Premium; 
+             }
+             $sum = $payed + $premium_amount;
+              $premium['Payed'] = $sum;
         $add_payment = array();
         $add_payment['ClientID'] = $this->input->post('ClientID');
         $add_payment['OfficeID'] = $officeID;
@@ -437,7 +464,7 @@ class ClientController extends CI_Controller {
             
         }
 }
-public function view_pay($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7,$meg8, $meg9,$meg10, $meg11)
+public function view_pay($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7,$meg8, $meg9,$meg10, $meg11,$meg12)
         {
     $values = array(
                 'meg1' => $meg1,
@@ -451,6 +478,7 @@ public function view_pay($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7,$meg8, $meg9,
             'meg9' => $meg9,
             'meg10' => $meg10,
             'meg11' => $meg11,
+        'meg12' => $meg12,
         );
                 $this->load->view('dashboard/payment_receipt',$values);
             

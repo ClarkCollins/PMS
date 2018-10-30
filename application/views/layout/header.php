@@ -69,7 +69,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <li id="header-nav"><a href="<?php echo site_url() ?>/home">Home</a></li>
                             <li><a href="<?php echo site_url() ?>/all_payment">Payments</a></li>
                             <li><a href="<?php echo site_url() ?>/all_client">Clients</a></li>
-                            <li><a href="#">Report</a></li>
+                            <?php if ($this->session->userdata('Type') == "Supervisor"): ?>
+                            <li><a href="<?php echo site_url() ?>/reports">Report</a></li>
+                             <?php endif ?>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li><?php foreach ($info->result() as $value) { ?>

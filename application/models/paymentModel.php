@@ -14,6 +14,14 @@ Class paymentModel extends CI_Model
 
         return $this->db->get();
     }
+    public function get_payment_policy($policyNo) 
+        {
+        $this->db->select('*');
+        $this->db->from('policy');
+        $this->db->where('policynumber',$policyNo);
+
+        return $this->db->get();
+    }
     public function add_payment($payment,$policyNum,$premium) {
         $this->db->where('PolicyNumber', $policyNum);
         $this->db->update('policy', $premium);
@@ -74,7 +82,62 @@ Class paymentModel extends CI_Model
         $data = $this->db->get();
         return $data;
     }
+    public function total_payment() {
+       $this->db->select('sum(Amount) as total');
+        $this->db->from('payment');
+        
+        $data = $this->db->get();
+        return $data;
+    }
+    public function total_payment_client($id) {
+        $this->db->distinct('ClientID');
+       $this->db->select('*,sum(Amount) as total');
+        $this->db->from('payment');
+        $this->db->where('ClientID',$id);
+         $this->db->group_by("ClientID");
+        
+        $data = $this->db->get();
+        return $data;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

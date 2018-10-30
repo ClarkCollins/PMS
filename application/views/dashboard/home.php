@@ -15,7 +15,11 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <b style="font-size: 50px">(sum payments)</b>
+                                    <b style="font-size: 45px">
+                                        <?php foreach ($info1->result() as $value) { ?>
+                                        <?php echo "R".$value->total ?>
+                                        <?php } ?>
+                                    </b>
                                 </div>
                                 <div class="col-xs-9 text-right">
 <!--                                    <div class="huge">26</div>
@@ -76,6 +80,7 @@
                         </a>
                     </div>
                 </div>
+                <?php if ($this->session->userdata('Type') == "Supervisor"): ?>
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-red">
                         <div class="panel-heading">
@@ -89,7 +94,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="<?php echo site_url() ?>/reports">
                             <div class="panel-footer">
                                 <span class="pull-left">View Reports</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -98,6 +103,7 @@
                         </a>
                     </div>
                 </div>
+                 <?php endif ?>
             </div>
             <!-- /.row -->
             <div class="row">
@@ -115,6 +121,13 @@
     <!-- /#wrapper -->
 
     
+
+
+
+
+
+
+
 
 
 

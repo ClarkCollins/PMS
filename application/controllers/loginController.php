@@ -49,7 +49,7 @@ class loginController extends CI_Controller {
                 redirect('/home');
             }  
            else {
-                $this->session->set_flashdata('flashDanger', 'Wrong email or password.');
+                $this->session->set_flashdata('flashDanger', 'Email or password do not match.');
                 redirect("/");
             }
         }}

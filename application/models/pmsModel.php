@@ -42,6 +42,19 @@ Class pmsModel extends CI_Model
             return false;
         }
     }
+    public function getMemberType2() 
+        {
+        $this->db->select('*');
+        $this->db->from('member_type');
+
+        $data = $this->db->get();
+
+        if ($data->num_rows() > 0) {
+            return $data;
+        } else {
+            return false;
+        }
+    }
     public function add_person( $policy,$person) {
         $this->db->insert('policy', $policy);
         $policyNumber = $this->db->insert_id();
@@ -57,10 +70,13 @@ Class pmsModel extends CI_Model
         $this->db->insert('person', $person);
         return $person;
     }
-    public function delete_client_dependent($policyNo,$id) {
+    public function delete_client_dependent($policyNo,$id,$cal_dep,$cal_pre) {
         $deleted = "Yes";
          $data = array('Deleted' => $deleted);
+         $policy = array('NoDependent' => $cal_dep, 
+                         'Premium' => $cal_pre);
         $this->db->where('PolicyNumber', $policyNo);
+        $this->db->update('policy', $policy);
         $this->db->where('IDNo', $id);
         return $this->db->update('person', $data);
     }
@@ -79,6 +95,16 @@ Class pmsModel extends CI_Model
         return $this->db->update('person', $data);
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

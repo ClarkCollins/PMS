@@ -51,10 +51,16 @@
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                             <p>
-                                <em>Date: <?php $date=new DateTime($meg9); echo date_format($date,"d-M-Y"); ?></em>
+                                <em>Date: <?php
+                                $time=new DateTime($meg12);
+                                $date=new DateTime($meg9); echo date_format($date,"d-M-Y").", ".$time->format('h:i A'); 
+                                ?></em>
                             </p>
                             <p>
                                 <em>Invoice No. <?php echo $meg5 ?></em>
+                            </p>
+                            <p>
+                                <em>Recieved by: <?php echo $meg3." ".$meg4 ?></em>
                             </p>
                         </div>
                     </div>

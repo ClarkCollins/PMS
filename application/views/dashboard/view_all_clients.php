@@ -22,7 +22,7 @@
                                 <th>Policy No.</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                                <th>Status</th>
+                                <th>Type</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -32,7 +32,12 @@
                                     <td><?php echo "SENZO" . $value->PolicyNumber; ?></td>
                                     <td><?php echo ucfirst($value->FirstName); ?></td>
                                     <td><?php echo ucfirst($value->Lastname); ?></td>
-                                    <td class="center"><?php echo $value->Status; ?></td>
+                                    <td><?php foreach ($memType->result() as $value1) { ?>
+                                        <?php if ($value->MembershipID == $value1->MembershipID): ?>
+                                        <?php echo $value1->TypeName; ?>
+                                        <?php endif?>
+                                        <?php } ?>
+                                    </td>
                                     <td class="center">
                                         <?php if ($value->MembershipID == "1"): ?>
                                         <a class="fa fa-pencil-square-o" title="Edit" href="<?php echo site_url() ?>/update_client_page/
@@ -74,6 +79,7 @@
                                            <?php echo $value->FirstName ?>/
                                            <?php echo $value->Lastname ?>/
                                            <?php echo $value->Premium ?>/
+                                           <?php echo $value->Payed ?>/
                                            " title="Make payment">
                                             Payment</a> /
                                         <?php else: ?>
@@ -86,6 +92,8 @@
                                            <?php echo $value->Gender ?>/
                                            <?php echo $value->PicturePath ?>/
                                            <?php echo $value->MembershipID ?>/
+                                           <?php echo $value->IDNo ?>/
+                                           <?php echo $value->Payed ?>/
                                            " title="View details">View</a>
                                 </tr>
                             <?php } ?>
@@ -102,6 +110,59 @@
 
 </div>
 <!-- /#wrapper -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

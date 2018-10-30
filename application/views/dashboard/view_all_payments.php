@@ -22,6 +22,7 @@
                                         <th>Invoice No.</th>
                                         <th>Client Name</th>
                                         <th>Staff</th>
+                                        <th>Amount</th>
                                         <th>Date</th>
                                         <th>Action</th>
                                     </tr>
@@ -33,6 +34,7 @@
                                         <td> <?php echo $value->InvoiceID ?></td>
                                         <td> <?php echo $value->FirstName." ".$value->Lastname ?></td>
                                         <td> <?php echo $value->fname." ".$value->lname ?></td>
+                                        <td> <?php echo "R".$value->Amount?></td>
                                         <td class="center"> <?php echo $value->Date ?></td>
                                         <td><a class="fa fa-print" target="blank_" href="<?php echo site_url() ?>/view_payment/
                                                                   <?php echo $value->FirstName ?>/
@@ -45,7 +47,8 @@
                                                                   <?php echo $value->Code ?>/
                                                                   <?php echo $value->Date ?>/
                                                                   <?php echo $value->PolicyNumber ?>/
-                                                                  <?php echo $value->Amount ?>/"
+                                                                  <?php echo $value->Amount ?>/
+                                                                  <?php echo $value->Time ?>/"
                                                               > Print</a></td>
                                     </tr>
                                     
@@ -63,6 +66,10 @@
 
 </div>
 <!-- /#wrapper -->
+
+
+
+
 
 
 
