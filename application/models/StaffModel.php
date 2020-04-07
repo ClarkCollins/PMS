@@ -1,6 +1,6 @@
 <?php
 
-Class staffModel extends CI_Model 
+Class StaffModel extends CI_Model 
 {
 /* 
  * To change this license header, choose License Headers in Project Properties.

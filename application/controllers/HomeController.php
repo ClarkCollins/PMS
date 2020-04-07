@@ -7,13 +7,7 @@ class HomeController extends CI_Controller {
 
 	 public function __construct() {
         parent::__construct();
-        if (!$this->session->userdata('StaffID', 'Type')) {
-            $allowed = array(
-            );
-            if (!in_array($this->router->fetch_method(), $allowed)) {
-                redirect('/');
-            }
-        }
+				
     }
 	public function index()
 	{
@@ -22,39 +16,16 @@ class HomeController extends CI_Controller {
 	{
                 $id = $this->session->userdata('StaffID');
                 if($this->session->userdata('Type')== 'Supervisor'){
-                $data['info'] = $this->staffModel->get_staff_details2($id);
+                $data['info'] = $this->StaffModel->get_staff_details2($id);
                 }
                 else{
-                  $data['info'] = $this->staffModel->get_staff_details($id);  
+                  $data['info'] = $this->StaffModel->get_staff_details($id);
                 }
-                $data['info1'] = $this->paymentModel->total_payment(); 
+                $data['info1'] = $this->PaymentModel->total_payment();
 		$this->load->view('layout/header',$data);
                 $this->load->view('dashboard/home');
                 $this->load->view('layout/footer');
 	}
-                
-        
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

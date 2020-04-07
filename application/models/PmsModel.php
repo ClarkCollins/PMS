@@ -1,14 +1,22 @@
 <?php
 
-Class pmsModel extends CI_Model 
+Class PmsModel extends CI_Model 
 {
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-        
-    public function getClient() 
+
+
+    public function getPolicy($policyNum)
+        {
+        $this->db->select('policy.*');
+        $this->db->from('policy');
+        $this->db->where('policy.PolicyNumber',$policyNum);
+        return $this->db->get();
+    }
+    public function getClient()
         {
         $active = "Active";
         $delete = "No";
@@ -19,15 +27,8 @@ Class pmsModel extends CI_Model
         $this->db->where('person.PolicyNumber = policy.PolicyNumber');
         return $this->db->get();
     }
-    public function getPolicy($policyNum) 
-        {
-        $this->db->select('policy.*');
-        $this->db->from('policy');
-        $this->db->where('policy.PolicyNumber',$policyNum);
-        return $this->db->get();
-    }
-    
-     public function getMemberType() 
+
+     public function getMemberType()
         {
          $main = "Main member";
         $this->db->select('*');
@@ -42,7 +43,7 @@ Class pmsModel extends CI_Model
             return false;
         }
     }
-    public function getMemberType2() 
+    public function getMemberType2()
         {
         $this->db->select('*');
         $this->db->from('member_type');
@@ -58,7 +59,7 @@ Class pmsModel extends CI_Model
     public function add_person( $policy,$person) {
         $this->db->insert('policy', $policy);
         $policyNumber = $this->db->insert_id();
-        
+
         $person['PolicyNumber'] = $policyNumber;
         $this->db->insert('person', $person);
         return $person;
@@ -66,14 +67,14 @@ Class pmsModel extends CI_Model
     public function add_person2($person, $policy, $p_num) {
         $this->db->where('PolicyNumber', $p_num);
         $this->db->update('policy', $policy);
-        
+
         $this->db->insert('person', $person);
         return $person;
     }
     public function delete_client_dependent($policyNo,$id,$cal_dep,$cal_pre) {
         $deleted = "Yes";
          $data = array('Deleted' => $deleted);
-         $policy = array('NoDependent' => $cal_dep, 
+         $policy = array('NoDependent' => $cal_dep,
                          'Premium' => $cal_pre);
         $this->db->where('PolicyNumber', $policyNo);
         $this->db->update('policy', $policy);
@@ -95,113 +96,3 @@ Class pmsModel extends CI_Model
         return $this->db->update('person', $data);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

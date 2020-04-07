@@ -5,13 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class ClientController extends CI_Controller {
      public function __construct() {
         parent::__construct();
-        if (!$this->session->userdata('StaffID', 'Type')) {
-            $allowed = array(
-            );
-            if (!in_array($this->router->fetch_method(), $allowed)) {
-                redirect('/');
-            }
-        }
+
     }
 	public function index()
 	{
@@ -23,58 +17,29 @@ class ClientController extends CI_Controller {
 	{
                 $id = $this->session->userdata('StaffID');
                 if($this->session->userdata('Type')== 'Supervisor'){
-                $dataMember['info'] = $this->staffModel->get_staff_details2($id);
+                $dataMember['info'] = $this->StaffModel->get_staff_details2($id);
                 }
                 else{
-                  $dataMember['info'] = $this->staffModel->get_staff_details($id);  
+                  $dataMember['info'] = $this->StaffModel->get_staff_details($id);
                 }
-                $dataMember['mType'] = $this->pmsModel->getMemberType();
+                $dataMember['mType'] = $this->PmsModel->getMemberType();
 		$this->load->view('layout/header',$dataMember);
                 $this->load->view('dashboard/register_client',$dataMember);
                 $this->load->view('layout/footer');
 	}
-        public function register_dependent_view($meg1,$meg2)
-        {
-            $id = $this->session->userdata('StaffID');
-                if($this->session->userdata('Type')== 'Supervisor'){
-                $data['info'] = $this->staffModel->get_staff_details2($id);
-                }
-                else{
-                  $data['info'] = $this->staffModel->get_staff_details($id);  
-                }
-                $dataMember = array(
-                'meg1' => $meg1,'meg2' => $meg2,);
-                $dataMember['mType'] = $this->pmsModel->getMemberType();
-		$this->load->view('layout/header',$data);
-                $this->load->view('dashboard/register_client_dependent',$dataMember);
-                $this->load->view('layout/footer');
-	}
-        public function all_client_view()
-	{
-            $id = $this->session->userdata('StaffID');
-                if($this->session->userdata('Type')== 'Supervisor'){
-                $data['info'] = $this->staffModel->get_staff_details2($id);
-                }
-                else{
-                  $data['info'] = $this->staffModel->get_staff_details($id);  
-                }
-                $data['allClient'] = $this->pmsModel->getClient();
-                $data['memType'] = $this->pmsModel->getMemberType2();
-		$this->load->view('layout/header',$data);
-                $this->load->view('dashboard/view_all_clients',$data);
-                $this->load->view('layout/footer');
-	}
+
+
         public function all_payment_view()
 	{
             $id = $this->session->userdata('StaffID');
                 if($this->session->userdata('Type')== 'Supervisor'){
-                $data['info'] = $this->staffModel->get_staff_details2($id);
+                $data['info'] = $this->StaffModel->get_staff_details2($id);
                 }
                 else{
-                  $data['info'] = $this->staffModel->get_staff_details($id);  
+                  $data['info'] = $this->StaffModel->get_staff_details($id);
                 }
-                $data['payment'] = $this->paymentModel->get_payment(); 
-                
+                $data['payment'] = $this->PaymentModel->get_payment();
+
 		$this->load->view('layout/header',$data);
                 $this->load->view('dashboard/view_all_payments',$data);
                 $this->load->view('layout/footer');
@@ -87,7 +52,7 @@ class ClientController extends CI_Controller {
             $imgSize = $_FILES['userfile']['size'];
             $userpic = '';
             if ($imgFile) {
-                $upload_dir = 'files/client_photo/'; // upload directory		
+                $upload_dir = 'files/client_photo/'; // upload directory
                 $imgExt = strtolower(pathinfo($imgFile, PATHINFO_EXTENSION)); // get image extension
                 $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
                 $userpic = rand(1000, 1000000) . "." . $imgExt;
@@ -104,7 +69,7 @@ class ClientController extends CI_Controller {
                     redirect('add_client');
                 }
             } else {
-                
+
             }
             if ($userpic == NULL) {
                 $userpic = 'no_profile.jpeg';
@@ -116,19 +81,19 @@ class ClientController extends CI_Controller {
         $add_client['DOB'] = $this->input->post('DOB');
         $add_client['Gender'] = $this->input->post('Gender');
         $add_client['PicturePath'] = $userpic;
-        $add_client['MembershipID'] = "1";  
+        $add_client['MembershipID'] = "1";
         $add_client_policy = array();
         $date = date('Y-m-d');
         $add_client_policy['InceptionDate'] = $date;
-         $this->pmsModel->add_person($add_client_policy,$add_client);
-        
-            
+         $this->PmsModel->add_person($add_client_policy,$add_client);
+
+
         }
         $client="Client Added";
         $this->session->set_flashdata('flash_Success', $client);
         redirect("/all_client");
         }
-          
+
           public function add_client_dependent()
 	{
             if (isset($_POST['upload'])) {
@@ -137,7 +102,7 @@ class ClientController extends CI_Controller {
             $imgSize = $_FILES['userfile']['size'];
             $userpic = '';
             if ($imgFile) {
-                $upload_dir = 'files/client_photo/'; // upload directory		
+                $upload_dir = 'files/client_photo/'; // upload directory
                 $imgExt = strtolower(pathinfo($imgFile, PATHINFO_EXTENSION)); // get image extension
                 $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
                 $userpic = rand(1000, 1000000) . "." . $imgExt;
@@ -154,13 +119,13 @@ class ClientController extends CI_Controller {
                     redirect('add_client');
                 }
             } else {
-                
+
             }
             if ($userpic == NULL) {
                 $userpic = 'no_profile.jpeg';
             }
             $pol = $this->input->post('PolicyNumber');
-       $no_dep['dp'] = $this->pmsModel->getPolicy($pol);
+       $no_dep['dp'] = $this->PmsModel->getPolicy($pol);
        foreach ($no_dep['dp']->result() as $row) {
             $dep = $row->NoDependent;
             $pre = $row->Premium;
@@ -180,47 +145,47 @@ class ClientController extends CI_Controller {
         $update_policy = array();
         $update_policy['NoDependent'] = $cal;
         $update_policy['Premium'] = $cal2;
-            $this->pmsModel->add_person2($add_client,$update_policy,$p_num);
-        
+            $this->PmsModel->add_person2($add_client,$update_policy,$p_num);
+
         }
         $client="Dependent Added";
         $this->session->set_flashdata('flash_Success', $client);
         redirect("/all_client");
-        }   
+        }
         public function delete_client()
         {
             $policyNumber = $this->uri->segment(2);
-            $this->pmsModel->delete_client($policyNumber);
+            $this->PmsModel->delete_client($policyNumber);
             $client="Client Deleted";
         $this->session->set_flashdata('flash_Success', $client);
         redirect("/all_client");
         }
         public function delete_client_dependent()
         {
-            
+
             $id = $this->uri->segment(2);
             $policyNumber = $this->uri->segment(3);
-             $up_policy['policy'] = $this->pmsModel->getPolicy($policyNumber);
+             $up_policy['policy'] = $this->PmsModel->getPolicy($policyNumber);
        foreach ($up_policy['policy']->result() as $row) {
             $dep = $row->NoDependent;
             $pre = $row->Premium;
         }
         $cal_dep = $dep - 1;
         $cal_pre = $pre - 10;
-            $this->pmsModel->delete_client_dependent($policyNumber,$id,$cal_dep,$cal_pre);
+            $this->PmsModel->delete_client_dependent($policyNumber,$id,$cal_dep,$cal_pre);
             $client="Dependent Deleted";
         $this->session->set_flashdata('flash_Success', $client);
         redirect("/all_client");
         }
-        
+
         public function update_client_view($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7)
         {
             $id = $this->session->userdata('StaffID');
                 if($this->session->userdata('Type')== 'Supervisor'){
-                $data['info'] = $this->staffModel->get_staff_details2($id);
+                $data['info'] = $this->StaffModel->get_staff_details2($id);
                 }
                 else{
-                  $data['info'] = $this->staffModel->get_staff_details($id);  
+                  $data['info'] = $this->StaffModel->get_staff_details($id);
                 }
             $update_client = array(
                 'meg1' => $meg1,
@@ -234,16 +199,47 @@ class ClientController extends CI_Controller {
             $this->load->view('layout/header',$data);
                 $this->load->view('dashboard/edit_client',$update_client);
                 $this->load->view('layout/footer');
-            
+
         }
+        public function all_client_view()
+	{
+            $id = $this->session->userdata('StaffID');
+                if($this->session->userdata('Type')== 'Supervisor'){
+                $data['info'] = $this->StaffModel->get_staff_details2($id);
+                }
+                else{
+                  $data['info'] = $this->StaffModel->get_staff_details($id);
+                }
+                $data['allClient'] = $this->PmsModel->getClient();
+                $data['memType'] = $this->PmsModel->getMemberType2();
+		$this->load->view('layout/header',$data);
+                $this->load->view('dashboard/view_all_clients',$data);
+                $this->load->view('layout/footer');
+	}
+        public function register_dependent_view($meg1,$meg2)
+        {
+            $id = $this->session->userdata('StaffID');
+                if($this->session->userdata('Type')== 'Supervisor'){
+                $data['info'] = $this->StaffModel->get_staff_details2($id);
+                }
+                else{
+                  $data['info'] = $this->StaffModel->get_staff_details($id);
+                }
+                $dataMember = array(
+                'meg1' => $meg1,'meg2' => $meg2,);
+                $dataMember['mType'] = $this->PmsModel->getMemberType();
+		$this->load->view('layout/header',$data);
+                $this->load->view('dashboard/register_client_dependent',$dataMember);
+                $this->load->view('layout/footer');
+	}
         public function view_client_detail($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7,$meg8,$meg9)
         {
             $id = $this->session->userdata('StaffID');
                 if($this->session->userdata('Type')== 'Supervisor'){
-                $data['info'] = $this->staffModel->get_staff_details2($id);
+                $data['info'] = $this->StaffModel->get_staff_details2($id);
                 }
                 else{
-                  $data['info'] = $this->staffModel->get_staff_details($id);  
+                  $data['info'] = $this->StaffModel->get_staff_details($id);
                 }
             $update_client = array(
                 'meg1' => $meg1,
@@ -256,21 +252,21 @@ class ClientController extends CI_Controller {
                 'meg8' => $meg8,
                 'meg9' => $meg9,
                 );
-            $data['mType'] = $this->pmsModel->getMemberType();
-            $data['total_pay'] = $this->paymentModel->total_payment_client($meg8);
+            $data['mType'] = $this->PmsModel->getMemberType();
+            $data['total_pay'] = $this->PaymentModel->total_payment_client($meg8);
             $this->load->view('layout/header',$data);
                 $this->load->view('dashboard/view_client_detail',$update_client);
                 $this->load->view('layout/footer');
-            
+
         }
         public function update_client_dependent_view($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7,$meg8)
         {
             $id = $this->session->userdata('StaffID');
                if($this->session->userdata('Type')== 'Supervisor'){
-                $data['info'] = $this->staffModel->get_staff_details2($id);
+                $data['info'] = $this->StaffModel->get_staff_details2($id);
                 }
                 else{
-                  $data['info'] = $this->staffModel->get_staff_details($id);  
+                  $data['info'] = $this->StaffModel->get_staff_details($id);
                 }
             $update_client = array(
                 'meg1' => $meg1,
@@ -282,11 +278,11 @@ class ClientController extends CI_Controller {
                 'meg7' => $meg7,
                 'meg8' => $meg8,
                 );
-            $update_client['mType'] = $this->pmsModel->getMemberType();
+            $update_client['mType'] = $this->PmsModel->getMemberType();
             $this->load->view('layout/header',$data);
                 $this->load->view('dashboard/edit_client_dependent',$update_client);
                 $this->load->view('layout/footer');
-            
+
         }
          public function update_client_dependent()
 	{
@@ -296,7 +292,7 @@ class ClientController extends CI_Controller {
             $imgSize = $_FILES['userfile']['size'];
             $userpic = '';
             if ($imgFile) {
-                $upload_dir = 'files/client_photo/'; // upload directory		
+                $upload_dir = 'files/client_photo/'; // upload directory
                 $imgExt = strtolower(pathinfo($imgFile, PATHINFO_EXTENSION)); // get image extension
                 $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
                 $userpic = rand(1000, 1000000) . "." . $imgExt;
@@ -313,12 +309,12 @@ class ClientController extends CI_Controller {
                     redirect('add_client');
                 }
             } else {
-                
+
             }
             if ($userpic == NULL) {
                 $userpic = $this->input->post('db_photo');
             }
-       
+
         $add_client = array();
         $add_client['FirstName'] = $this->input->post('FirstName');
         $add_client['LastName'] = $this->input->post('LastName');
@@ -328,14 +324,14 @@ class ClientController extends CI_Controller {
         $add_client['PicturePath'] = $userpic;
         $add_client['MembershipID'] = $this->input->post('MembershipID');
         $id = $this->input->post('IDNo');
-            $this->pmsModel->update_client($id,$add_client);
-        
+            $this->PmsModel->update_client($id,$add_client);
+
         }
         $client="Dependent Updated";
         $this->session->set_flashdata('flash_Success', $client);
         redirect("/all_client");
-        }   
-        
+        }
+
          public function update_client()
 	{
             if (isset($_POST['upload'])) {
@@ -344,7 +340,7 @@ class ClientController extends CI_Controller {
             $imgSize = $_FILES['userfile']['size'];
             $userpic = '';
             if ($imgFile) {
-                $upload_dir = 'files/client_photo/'; // upload directory		
+                $upload_dir = 'files/client_photo/'; // upload directory
                 $imgExt = strtolower(pathinfo($imgFile, PATHINFO_EXTENSION)); // get image extension
                 $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
                 $userpic = rand(1000, 1000000) . "." . $imgExt;
@@ -361,7 +357,7 @@ class ClientController extends CI_Controller {
                     redirect('update_client_page');
                 }
             } else {
-                
+
             }
             if ($userpic == NULL) {
                 $userpic = $this->input->post('db_photo');
@@ -374,24 +370,24 @@ class ClientController extends CI_Controller {
         $add_client['DOB'] = $this->input->post('DOB');
         $add_client['Gender'] = $this->input->post('Gender');
         $add_client['PicturePath'] = $userpic;
-        $add_client['MembershipID'] = "1";  
-         $this->pmsModel->update_client($id,$add_client);
-        
-            
+        $add_client['MembershipID'] = "1";
+         $this->PmsModel->update_client($id,$add_client);
+
+
         }
         $client="Client Updated";
         $this->session->set_flashdata('flash_Success', $client);
         redirect("/all_client");
         }
-        
+
         public function pay_premium_view($meg1,$meg2,$meg3,$meg4,$meg5,$meg6)
         {
             $id = $this->session->userdata('StaffID');
                if($this->session->userdata('Type')== 'Supervisor'){
-                $data['info'] = $this->staffModel->get_staff_details2($id);
+                $data['info'] = $this->StaffModel->get_staff_details2($id);
                 }
                 else{
-                  $data['info'] = $this->staffModel->get_staff_details($id);  
+                  $data['info'] = $this->StaffModel->get_staff_details($id);
                 }
             $update_client = array(
                 'meg1' => $meg1,
@@ -400,28 +396,28 @@ class ClientController extends CI_Controller {
                 'meg4' => $meg4,
                 'meg5' => $meg5,
                 'meg6' => $meg6,
-                
+
                 );
-            $data['total_pay'] = $this->paymentModel->total_payment_client($meg1);
+            $data['total_pay'] = $this->PaymentModel->total_payment_client($meg1);
             $this->load->view('layout/header',$data);
                 $this->load->view('dashboard/pay_premium',$update_client);
                 $this->load->view('layout/footer');
-            
+
         }
          public function make_payment()
         {
              $id = $this->session->userdata('StaffID');
              if($this->session->userdata('Type')== 'Supervisor')
              {
-                 $location['data'] =  $this->staffModel->get_staff_details2($id);
+                 $location['data'] =  $this->StaffModel->get_staff_details2($id);
               foreach ($location['data']->result() as $row) {
                    $officeID = $row->OfficeID;
               }
               $policyNum = $this->input->post('PolicyNumber');
-               $policy['policy'] =  $this->paymentModel->get_payment_policy($policyNum);
+               $policy['policy'] =  $this->PaymentModel->get_payment_policy($policyNum);
               foreach ($policy['policy']->result() as $row) {
-                   $payed = $row->Payed; 
-                   $premium_amount = $row->Premium; 
+                   $payed = $row->Payed;
+                   $premium_amount = $row->Premium;
              }
              $sum = $payed + $premium_amount;
               $premium['Payed'] = $sum;
@@ -430,23 +426,23 @@ class ClientController extends CI_Controller {
         $add_payment['OfficeID'] = $officeID;
         $add_payment['StaffID'] = $this->session->userdata('StaffID');
         $add_payment['Date'] = date('Y-m-d');
-        $add_payment['Amount'] = $this->input->post('Amount');  
-        $add_payment['Time'] = date("h:i:s", time() - 3600);   
-         $this->paymentModel->add_payment($add_payment,$policyNum,$premium);
-         
+        $add_payment['Amount'] = $this->input->post('Amount');
+        $add_payment['Time'] = date("h:i:s", time() - 3600);
+         $this->PaymentModel->add_payment($add_payment,$policyNum,$premium);
+
          $client="Payment Successful";
         $this->session->set_flashdata('flash_Success', $client);
         redirect('all_payment');
              }else{
-                $location['data'] =  $this->staffModel->get_staff_details($id);
+                $location['data'] =  $this->StaffModel->get_staff_details($id);
                   foreach ($location['data']->result() as $row) {
-                   $officeID = $row->Location; 
+                   $officeID = $row->Location;
              }
               $policyNum = $this->input->post('PolicyNumber');
-              $policy['policy'] =  $this->paymentModel->get_payment_policy($policyNum);
+              $policy['policy'] =  $this->PaymentModel->get_payment_policy($policyNum);
              foreach ($policy['policy']->result() as $row) {
-                   $payed = $row->Payed; 
-                   $premium_amount = $row->Premium; 
+                   $payed = $row->Payed;
+                   $premium_amount = $row->Premium;
              }
              $sum = $payed + $premium_amount;
               $premium['Payed'] = $sum;
@@ -455,13 +451,14 @@ class ClientController extends CI_Controller {
         $add_payment['OfficeID'] = $officeID;
         $add_payment['StaffID'] = $this->session->userdata('StaffID');
         $add_payment['Date'] = date('Y-m-d');
-        $add_payment['Amount'] = $this->input->post('Amount');  
-         $this->paymentModel->add_payment($add_payment,$policyNum,$premium);
-         
+        $add_payment['Amount'] = $this->input->post('Amount');
+        $add_payment['Time'] = date("h:i:s", time() - 3600);
+         $this->PaymentModel->add_payment($add_payment,$policyNum,$premium);
+
          $client="Payment added";
         $this->session->set_flashdata('flash_Success', $client);
         redirect('all_payment');
-            
+
         }
 }
 public function view_pay($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7,$meg8, $meg9,$meg10, $meg11,$meg12)
@@ -481,15 +478,8 @@ public function view_pay($meg1,$meg2,$meg3,$meg4,$meg5,$meg6,$meg7,$meg8, $meg9,
         'meg12' => $meg12,
         );
                 $this->load->view('dashboard/payment_receipt',$values);
-            
+
         }
 
 
 }
-
-
-
-
-
-
-

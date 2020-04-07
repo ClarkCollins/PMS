@@ -7,17 +7,11 @@ class ReportController extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        if (!$this->session->userdata('StaffID', 'Type')) {
-            $allowed = array(
-            );
-            if (!in_array($this->router->fetch_method(), $allowed)) {
-                redirect('/');
-            }
-        }
+      
     }
 
     public function index() {
-        
+
     }
 
     public function reports_view() {
@@ -32,11 +26,11 @@ class ReportController extends CI_Controller {
     public function reports_view_() {
        $id = $this->session->userdata('StaffID');
             if ($this->session->userdata('Type') == 'Supervisor') {
-                $data['info'] = $this->staffModel->get_staff_details2($id);
+                $data['info'] = $this->StaffModel->get_staff_details2($id);
             } else {
-                $data['info'] = $this->staffModel->get_staff_details($id);
+                $data['info'] = $this->StaffModel->get_staff_details($id);
             }
-            $data['info2'] = $this->staffModel->get_office();
+            $data['info2'] = $this->StaffModel->get_office();
             $s_date = $this->input->post('s_date');
             $e_date = $this->input->post('e_date');
             $data['info3'] = $this->paymentModel->get_count_location_payment1($s_date,$e_date);
@@ -57,15 +51,15 @@ class ReportController extends CI_Controller {
     public function reports_view_staff2() {
        $id = $this->session->userdata('StaffID');
             if ($this->session->userdata('Type') == 'Supervisor') {
-                $data['info'] = $this->staffModel->get_staff_details2($id);
+                $data['info'] = $this->StaffModel->get_staff_details2($id);
             } else {
-                $data['info'] = $this->staffModel->get_staff_details($id);
+                $data['info'] = $this->StaffModel->get_staff_details($id);
             }
             $data['info2'] = $this->staffModel->get_office();
             $s_date = $this->input->post('s_date');
             $e_date = $this->input->post('e_date');
-            $data['staff'] = $this->paymentModel->get_staff_payment($s_date,$e_date);
-            $data['total'] = $this->paymentModel->get_staff_payment_total($s_date,$e_date);
+            $data['staff'] = $this->PaymentModel->get_staff_payment($s_date,$e_date);
+            $data['total'] = $this->PaymentModel->get_staff_payment_total($s_date,$e_date);
             $this->load->view('layout/header', $data);
             $this->load->view('reports/reports_staff', $data);
             $this->load->view('layout/footer');
@@ -79,13 +73,13 @@ class ReportController extends CI_Controller {
             return false;
         }
     }
-    
+
     function reports() {
              $id = $this->session->userdata('StaffID');
             if ($this->session->userdata('Type') == 'Supervisor') {
-                $data['info'] = $this->staffModel->get_staff_details2($id);
+                $data['info'] = $this->StaffModel->get_staff_details2($id);
             } else {
-                $data['info'] = $this->staffModel->get_staff_details($id);
+                $data['info'] = $this->StaffModel->get_staff_details($id);
             }
             $this->load->view('layout/header', $data);
             $this->load->view('reports/reports', $data);

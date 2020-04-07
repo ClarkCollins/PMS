@@ -1,9 +1,9 @@
 <?php
 
-Class paymentModel extends CI_Model 
+Class PaymentModel extends CI_Model 
 {
 
-   public function get_payment() 
+   public function get_payment()
         {
         $this->db->select('p.*,s.*, pa.*,of.*,pe.FirstName as fname, pe.Lastname as lname');
         $this->db->from('person p,staff s,payment pa,office of');
@@ -14,7 +14,7 @@ Class paymentModel extends CI_Model
 
         return $this->db->get();
     }
-    public function get_payment_policy($policyNo) 
+    public function get_payment_policy($policyNo)
         {
         $this->db->select('*');
         $this->db->from('policy');
@@ -25,21 +25,21 @@ Class paymentModel extends CI_Model
     public function add_payment($payment,$policyNum,$premium) {
         $this->db->where('PolicyNumber', $policyNum);
         $this->db->update('policy', $premium);
-        
+
         $this->db->insert('payment', $payment);
         return $payment;
     }
     public function get_total()
     {
-        
-        
+
+
     }
     public function get_count_location_payment1($s_date,$e_date) {
        $this->db->select('count(officeID) as location1');
         $this->db->from('payment');
         $this->db->where("date BETWEEN '$s_date' AND '$e_date'");
         $this->db->where("OfficeID", 1);
-        
+
         $data = $this->db->get();
         return $data;
     }
@@ -48,7 +48,7 @@ Class paymentModel extends CI_Model
         $this->db->from('payment');
         $this->db->where("date BETWEEN '$s_date' AND '$e_date'");
         $this->db->where("OfficeID", 2);
-        
+
         $data = $this->db->get();
         return $data;
     }
@@ -57,7 +57,7 @@ Class paymentModel extends CI_Model
         $this->db->from('payment');
         $this->db->where("date BETWEEN '$s_date' AND '$e_date'");
         $this->db->where("OfficeID", 3);
-        
+
         $data = $this->db->get();
         return $data;
     }
@@ -69,7 +69,7 @@ Class paymentModel extends CI_Model
         $this->db->where("date BETWEEN '$s_date' AND '$e_date'");
          $this->db->where("person.IDNo = payment.StaffID");
          $this->db->group_by("person.FirstName");
-        
+
         $data = $this->db->get();
         return $data;
     }
@@ -78,14 +78,14 @@ Class paymentModel extends CI_Model
         $this->db->from('person, payment');
         $this->db->where("date BETWEEN '$s_date' AND '$e_date'");
         $this->db->where("person.IDNo = payment.StaffID");
-        
+
         $data = $this->db->get();
         return $data;
     }
     public function total_payment() {
        $this->db->select('sum(Amount) as total');
         $this->db->from('payment');
-        
+
         $data = $this->db->get();
         return $data;
     }
@@ -95,344 +95,8 @@ Class paymentModel extends CI_Model
         $this->db->from('payment');
         $this->db->where('ClientID',$id);
          $this->db->group_by("ClientID");
-        
+
         $data = $this->db->get();
         return $data;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

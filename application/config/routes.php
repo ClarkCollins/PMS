@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'LoginController/login';
 $route['logout'] = 'LoginController/logout';
-$route['register_controller'] = 'registerController/register';
+$route['register_controller'] = 'RegisterController/register';
 $route['home'] = 'HomeController/home_view';
 
 //Client
@@ -77,8 +77,8 @@ $route['add_consultant'] = 'StaffController/add_consultant_view';
 $route['add_consultant_'] = 'StaffController/add_consultant';
 $route['profile'] = 'StaffController/profile_view';
 $route['profile_update'] = 'StaffController/Update_profile';
-$route['login'] = 'loginController/staff_validation';
-$route['logout'] = 'loginController/logout';
+$route['login'] = 'LoginController/staff_validation';
+$route['logout'] = 'LoginController/logout';
 $route['reports'] = 'ReportController/reports';
 $route['reports_'] = 'ReportController/reports_view_staff';
 $route['location_report'] = 'ReportController/reports_view';
